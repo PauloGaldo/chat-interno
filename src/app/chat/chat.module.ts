@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { ChatDashboardComponent } from './chat-dashboard/chat-dashboard.component';
-import { ChatWindowsComponent } from './chat-windows/chat-windows.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
-import { ChatContactComponent } from './chat-contact/chat-contact.component';
+import { ChatContactsComponent } from './chat-contacts/chat-contacts.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+
 
 @NgModule({
     imports: [
@@ -14,10 +14,9 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
     ],
     declarations: [
         ChatDashboardComponent,
-        ChatWindowsComponent,
         ChatWindowComponent,
-        ChatContactComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        ChatContactsComponent
     ],
     exports: [
         ChatDashboardComponent
