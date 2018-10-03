@@ -6,14 +6,14 @@
   </mat-card-header>
 
   <mat-card-content fxFlex="60">
-    <ci-chat-message *ngFor="let message of messages" [message]="message">
+    <ci-chat-message *ngFor="let message of messages">
     </ci-chat-message>
   </mat-card-content>
 
   <mat-card-actions fxFlex="10">
     <div class="input" fxLayout="row wrap">
       <mat-form-field fxFlex="80">
-        <input matInput placeholder="Escribe tu mensaje" (keydown.enter)="onEnter($event)" [(ngModel)]="draftMessage.text">
+        <input matInput placeholder="Escribe tu mensaje" (keydown.enter)="onEnter($event)">
       </mat-form-field>
       <span class="input-btn" fxFlex="20">
         <button mat-raised-button color="primary" (click)="onEnter($event)">Enviar</button>

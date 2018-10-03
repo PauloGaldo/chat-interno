@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ci-chat-window',
-  templateUrl: './chat-window.component.html',
-  styleUrls: ['./chat-window.component.scss']
+    selector: 'ci-chat-window',
+    templateUrl: './chat-window.component.html',
+    styleUrls: ['./chat-window.component.scss']
 })
 export class ChatWindowComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    onEnter(event: any) {
+
+    }
 
 }
