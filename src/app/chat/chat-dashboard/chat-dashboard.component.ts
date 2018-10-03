@@ -10,13 +10,21 @@ export class ChatDashboardComponent implements OnInit {
 
     private session: any;
     public timeline = [];
+    public threads = {};
 
     constructor(private deepStreamService: DeepStreamService) { }
 
     ngOnInit() {
         this.session = this.deepStreamService.ds.login();
+        const name = 'timeline'
 
-        const list = this.session.record.getList('timeline');
+        const list = this.session.record.getList(name);
+        this.threads = {
+            ...this.threads,
+            [name]: { list: list }
+        };
+
+        console.log(this.threads);
 
         list.whenReady(list => {
             // OBTENEMOS MENSAJES

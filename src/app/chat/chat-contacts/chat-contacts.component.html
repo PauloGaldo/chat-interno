@@ -1,8 +1,8 @@
 <div class="contacts-container">
-  <mat-list>
-    <mat-list-item *ngFor="">
-      <mat-icon mat-list-icon>Contactos</mat-icon>
-        <p>contactos...</p>
-    </mat-list-item>
-  </mat-list>
+    <mat-list>
+        <mat-list-item *ngFor="let contact of contacts">
+            <mat-icon matListIcon>folder</mat-icon>
+            <div matLine>{{contact.idPerfil}}</div>
+        </mat-list-item>
+    </mat-list>
 </div>
