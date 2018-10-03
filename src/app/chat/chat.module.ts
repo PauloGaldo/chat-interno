@@ -5,18 +5,22 @@ import { ChatDashboardComponent } from './chat-dashboard/chat-dashboard.componen
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { ChatContactsComponent } from './chat-contacts/chat-contacts.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChatNavbarComponent } from './chat-navbar/chat-navbar.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule
+        SharedModule,
+        FlexLayoutModule
     ],
     declarations: [
         ChatDashboardComponent,
         ChatWindowComponent,
         ChatMessageComponent,
-        ChatContactsComponent
+        ChatContactsComponent,
+        ChatNavbarComponent
     ],
     exports: [
         ChatDashboardComponent

@@ -1,0 +1,8 @@
+.chat-dashboard {
+    height: 100%;
+    background: yellow;
+    .content-dashboard {
+        height: calc(100% - 64px);
+    }
+}
+

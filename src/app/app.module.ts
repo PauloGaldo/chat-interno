@@ -8,6 +8,7 @@ import { ChatDashboardComponent } from './chat/chat-dashboard/chat-dashboard.com
 import { ChatMessageComponent } from './chat/chat-message/chat-message.component';
 import { ChatWindowComponent } from './chat/chat-window/chat-window.component';
 import { MaterialModule } from './shared/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -23,7 +24,8 @@ import { MaterialModule } from './shared/material.module';
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        MaterialModule
+        MaterialModule,
+        FlexLayoutModule
     ],
     providers: [],
     bootstrap: [AppComponent]

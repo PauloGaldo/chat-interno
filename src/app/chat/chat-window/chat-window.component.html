@@ -1,23 +1,20 @@
-<mat-card class="window-card" fxLayout="column" fxLayoutAlign="space-evenly none">
-  <mat-card-header fxFlex="20">
-    <mat-icon svgIcon="thumbs-up"></mat-icon>
-    <mat-card-title>Chat Interno</mat-card-title>
-    <mat-icon svgIcon="close"></mat-icon>
-  </mat-card-header>
+<div class="window-dashboard" fxLayout='column' fxLayoutAlign="space-around stretch">
+  <div fxFlex='20'>
+    <h2>Chat interno</h2>
+  </div>
 
-  <mat-card-content fxFlex="60">
-    <ci-chat-message *ngFor="let message of messages">
-    </ci-chat-message>
-  </mat-card-content>
+  <div fxFlex='70'>
+    
+  </div>
 
-  <mat-card-actions fxFlex="10">
-    <div class="input" fxLayout="row wrap">
+  <div fxFlex='10'>
+    <div class="input-message" fxLayout="row wrap">
       <mat-form-field fxFlex="80">
-        <input matInput placeholder="Escribe tu mensaje" (keydown.enter)="onEnter($event)">
+        <input matInput placeholder="Escribe tu mensaje">
       </mat-form-field>
-      <span class="input-btn" fxFlex="20">
-        <button mat-raised-button color="primary" (click)="onEnter($event)">Enviar</button>
+      <span class="send-btn" fxFlex="20">
+        <button mat-raised-button color="primary">Enviar</button>
       </span>
     </div>
-  </mat-card-actions>
-</mat-card>
+  </div>
+</div>
