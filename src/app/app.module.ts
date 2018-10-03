@@ -7,6 +7,7 @@ import { ChatContactsComponent } from './chat/chat-contacts/chat-contacts.compon
 import { ChatDashboardComponent } from './chat/chat-dashboard/chat-dashboard.component';
 import { ChatMessageComponent } from './chat/chat-message/chat-message.component';
 import { ChatWindowComponent } from './chat/chat-window/chat-window.component';
+import { ChatNavbarComponent } from './chat/chat-navbar/chat-navbar.component';
 import { MaterialModule } from './shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -18,7 +19,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         ChatDashboardComponent,
         ChatWindowComponent,
         ChatContactsComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        ChatNavbarComponent
     ],
     imports: [
         BrowserModule,
