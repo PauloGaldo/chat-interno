@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
-interface MessagesOp extends Function {
-    (messages: Any[]): Any[];
-}
 
 @Injectable({
     providedIn: 'root'
@@ -11,16 +8,18 @@ interface MessagesOp extends Function {
 export class MessagesService {
     message: any;
     // nuevo mensaje a enviar
-    newMessages: Subject<message> = new Subject<message>();
+    newMessages: Subject<any> = new Subject<any>();
     // array de mensajes activos
     messages: Observable<any[]>;
+    markThreadAsRead: string[] = ['1'];
+    updates: any;
 
     constructor() {
         // marcar mensaje como leido
 
-        this.markThreadAsRead.map((thread: Thread) => {
-            return (messages: Message[]) => {
-                return messages.map((message: Message) => {
+        this.markThreadAsRead.map((thread: any) => {
+            return (messages: any[]) => {
+                return messages.map((message: any) => {
 
                     if (message.thread.id === thread.id) {
                         message.isRead = true;
@@ -28,8 +27,8 @@ export class MessagesService {
                     return message;
                 });
             };
-        })
-            .subscribe(this.updates);
+        });
+        //    .subscribe(this.updates);
     }
 
 
@@ -40,13 +39,13 @@ export class MessagesService {
 
     // vincular un usuario con un grupo de mensajes
     messagesForUser(thread: any, user: any): Observable<any> {
-        return this.newMessages
-            .filter((message: any) => {
-                // belongs to this thread
-                return (message.thread.id === thread.id) &&
-                    // and isn't authored by this user
-                    (message.author.id !== user.id);
-            });
+        return this.newMessages.asObservable();
+        /*.filter((message: any) => {
+            // belongs to this thread
+            return (message.thread.id === thread.id) &&
+                // and isn't authored by this user
+                (message.author.id !== user.id);
+        });*/
     }
 
 

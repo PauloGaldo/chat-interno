@@ -1,9 +1,23 @@
 <div class="chat-dashboard" fxLayout="row wrap">
+    <!-- NAVBAR -->
     <ci-chat-navbar fxFlex="100"></ci-chat-navbar>
+    <!-- CONTACTOS -->
     <div class="content-dashboard" fxFlex="30">
         <ci-chat-contacts></ci-chat-contacts>
     </div>
+    <!-- CAJA DE CHAT -->
     <div class="content-dashboard" fxFlex="70">
         <ci-chat-window></ci-chat-window>
+    </div>
+    <!-- BROADCAST -->
+    <div fxFlex="100">
+        <div class="input-message" fxLayout="row wrap">
+            <mat-form-field fxFlex="80">
+                <input matInput placeholder="Escribe tu mensaje en broadcast" [value]="systemMessage">
+            </mat-form-field>
+            <span class="send-btn" fxFlex="20">
+                <button mat-raised-button color="primary" (click)="addSystemMessage()">Enviar</button>
+            </span>
+        </div>
     </div>
 </div>

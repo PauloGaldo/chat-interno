@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 
 @Component({
@@ -10,21 +11,17 @@ export class ChatDashboardComponent implements OnInit {
 
     private session: any;
     public timeline = [];
-    public threads = {};
+    public systemMessage = '';
 
-    constructor(private deepStreamService: DeepStreamService) { }
+    constructor(
+        private deepStreamService: DeepStreamService,
+        public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.session = this.deepStreamService.ds.login();
-        const name = 'timeline'
 
-        const list = this.session.record.getList(name);
-        this.threads = {
-            ...this.threads,
-            [name]: { list: list }
-        };
-
-        console.log(this.threads);
+        const list = this.session.record.getList('timeline');
+        const systemNotification = this.session.record.getList('system-notification');
 
         list.whenReady(list => {
             // OBTENEMOS MENSAJES
@@ -45,6 +42,43 @@ export class ChatDashboardComponent implements OnInit {
                     }, true);
                 });
             });
+        });
+
+        /** Listen to system-notifications */
+        systemNotification.whenReady(notifications => {
+            notifications.on('entry-added', (recordName) => {
+                this.session.record.getRecord(recordName)
+                    .whenReady(record => {
+                        console.log('record');
+                        console.log(record);
+                        record.subscribe(data => {
+                            console.log('data');
+                            console.log(data);
+                            this.snackBar.open(data.content, null, {
+                                duration: 2000,
+                                verticalPosition: 'top'
+                            });
+                        }, true);
+                    });
+            });
+        });
+    }
+
+    addSystemMessage() {
+        const uid = Math.floor(Math.random() * 1000); //temp way for demo
+        const recordName = `status/${uid}`; //create a unique record name
+        const record = this.session.record.getRecord(recordName);
+        console.log('systemMessage');
+        console.log(this.systemMessage);
+        record.whenReady(message => {
+            // data has now been loaded
+            message.set({
+                author: 'this.user',
+                content: 'this.systemMessage'
+            });
+            const systemNotification = this.session.record.getList('system-notification');
+            systemNotification.addEntry(recordName);
+            this.systemMessage = '';
         });
     }
 
