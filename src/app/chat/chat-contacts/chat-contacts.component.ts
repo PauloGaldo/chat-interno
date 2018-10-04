@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ChatService } from '../services/chat.service';
 
 @Component({
     selector: 'ci-chat-contacts',
@@ -7,44 +9,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatContactsComponent implements OnInit {
 
+    @Output() changed: any = new EventEmitter<any>();
     public contacts = [];
+    public activeContact: any;
 
-    constructor() {
-
-        this.contacts.push(
-            {
-                idPerfil: 'DESPBOMLON0',
-                idUsuarioUPD: 'admin',
-                perfil: 'BOMBEROS LEON',
-                subcentro: {
-                    idSubCentro: 'LEON',
-                    idUsuarioUPD: 'Administrador',
-                    subCentro: 'LEON'
-                }
-            },
-            {
-                idPerfil: 'DESPBOMLON1',
-                idUsuarioUPD: 'admin',
-                perfil: 'BOMBEROS LEON',
-                subcentro: {
-                    idSubCentro: 'LEON',
-                    idUsuarioUPD: 'Administrador',
-                    subCentro: 'LEON'
-                }
-            },
-            {
-                idPerfil: 'DESPBOMLON2',
-                idUsuarioUPD: 'admin',
-                perfil: 'BOMBEROS LEON',
-                subcentro: {
-                    idSubCentro: 'LEON',
-                    idUsuarioUPD: 'Administrador',
-                    subCentro: 'LEON'
-                }
-            });
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private chatService: ChatService
+    ) {
+        // CARGAR MOCK DE CONTACTOS
+        this.chatService.getContactList().subscribe(response => {
+            this.contacts = response.data;
+        });
     }
 
     ngOnInit() {
+    }
+
+    /**
+     * Funcion para determinar que contacto esta activo del listado
+     * @param contact contacto del listado
+     */
+    isContactActive(contact: any): boolean {
+        const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
+        if (contact.idPerfil === queryParams['id']) {
+            this.activeContact = contact;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Metodo para seleccionar y poner activo un contacto del listado
+     * @param contact contacto del listado
+     */
+    selectContact(contact: any): void {
+        if (contact) {
+            this.activeContact = contact;
+            const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
+            queryParams['id'] = contact.idPerfil;
+            this.router.navigate(['.'], { queryParams: queryParams });
+            this.changed.emit(contact);
+        }
     }
 
 }

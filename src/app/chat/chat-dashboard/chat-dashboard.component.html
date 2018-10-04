@@ -1,23 +1,24 @@
 <div class="chat-dashboard" fxLayout="row wrap">
     <!-- NAVBAR -->
     <ci-chat-navbar fxFlex="100"></ci-chat-navbar>
-    <!-- CONTACTOS -->
-    <div class="content-dashboard" fxFlex="30">
-        <ci-chat-contacts></ci-chat-contacts>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="content-dashboard" fxFlex="100" fxLayout="row wrap">
+        <!-- CONTACTOS -->
+        <ci-chat-contacts class="contacts-list" fxFlex="30" (changed)="contactChanged($event)"></ci-chat-contacts>
+        <!-- CAJA DE CHAT -->
+        <ci-chat-window class="contact-window" fxFlex="70" [messages]="timeline" (send)="onSendMessage($event)"></ci-chat-window>
     </div>
-    <!-- CAJA DE CHAT -->
-    <div class="content-dashboard" fxFlex="70">
-        <ci-chat-window></ci-chat-window>
-    </div>
+
+
     <!-- BROADCAST -->
-    <div fxFlex="100">
-        <div class="input-message" fxLayout="row wrap">
+    <div fxFlex="100" hidden="true">
+        <form [formGroup]="systemMessageForm" (ngSubmit)="addSystemMessage(systemMessageForm)" fxLayout="row wrap">
             <mat-form-field fxFlex="80">
-                <input matInput placeholder="Escribe tu mensaje en broadcast" [value]="systemMessage">
+                <input matInput formControlName="message" placeholder="Escribe tu mensaje en broadcast">
             </mat-form-field>
             <span class="send-btn" fxFlex="20">
-                <button mat-raised-button color="primary" (click)="addSystemMessage()">Enviar</button>
+                <button mat-raised-button color="primary">Enviar</button>
             </span>
-        </div>
+        </form>
     </div>
 </div>

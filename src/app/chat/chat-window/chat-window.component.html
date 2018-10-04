@@ -1,20 +1,17 @@
-<div class="window-dashboard" fxLayout='column' fxLayoutAlign="space-around stretch">
-  <div fxFlex='20'>
-    <h2>Chat interno</h2>
-  </div>
-
-  <div fxFlex='70'>
-    
-  </div>
-
-  <div fxFlex='10'>
-    <div class="input-message" fxLayout="row wrap">
-      <mat-form-field fxFlex="80">
-        <input matInput placeholder="Escribe tu mensaje">
-      </mat-form-field>
-      <span class="send-btn" fxFlex="20">
-        <button mat-raised-button color="primary">Enviar</button>
-      </span>
+<div class="chat-window" fxLayout="row wrap">
+    <div fxFlex="100">
+        <ul>
+            <li *ngFor="let message of messages.reverse()">
+                {{message.content}}
+            </li>
+        </ul>
     </div>
-  </div>
+    <form class="form-chat" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm)" fxFlex="100" fxLayout="row wrap" autocomplete="off">
+        <mat-form-field fxFlex="100">
+            <input matInput formControlName="message" (keyup.enter)="sendMessage(messageForm)" autocomplete="off">
+            <button mat-icon-button matSuffix>
+                <mat-icon>send</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
 </div>

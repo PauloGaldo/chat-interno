@@ -2,7 +2,15 @@
     height: 100vh;
     // background:steelblue;
     .content-dashboard {
-        height: calc(100% - 130px);
+        height: calc(100% - 64px);
+        .contacts-list{
+            overflow: auto;
+            height: 100%;
+        }
+        .contact-window{
+            height: 100%;
+            padding: 5px 15px;
+        }
     }
 }
 
