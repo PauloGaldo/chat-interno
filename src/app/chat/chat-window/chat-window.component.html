@@ -1,17 +1,25 @@
 <div class="chat-window" fxLayout="row wrap">
     <div fxFlex="100">
-        <ul>
+        <!-- <ul>
             <li *ngFor="let message of messages.reverse()">
                 {{message.content}}
             </li>
-        </ul>
+        </ul> -->
+        <perfect-scrollbar class="wrapper" #chatbox [config]="config">
+            <div class="message-wrapper" *ngFor="let message of messages.reverse()" [ngClass]="isUserAuthor(message)">
+                <div class="circle-wrapper animated bounceIn"></div>
+                <div class="text-wrapper animated fadeIn">
+                    {{message.content}}
+                </div>
+            </div>
+        </perfect-scrollbar>
+        <form class="form-chat" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm)" fxFlex="100" fxLayout="row wrap"
+            autocomplete="off">
+            <mat-form-field fxFlex="100">
+                <input matInput formControlName="message" (keyup.enter)="sendMessage(messageForm)" autocomplete="off">
+                <button mat-icon-button matSuffix>
+                    <mat-icon>send</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
     </div>
-    <form class="form-chat" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm)" fxFlex="100" fxLayout="row wrap" autocomplete="off">
-        <mat-form-field fxFlex="100">
-            <input matInput formControlName="message" (keyup.enter)="sendMessage(messageForm)" autocomplete="off">
-            <button mat-icon-button matSuffix>
-                <mat-icon>send</mat-icon>
-            </button>
-        </mat-form-field>
-    </form>
-</div>

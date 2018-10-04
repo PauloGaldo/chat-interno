@@ -55,7 +55,7 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    author: 'this.user',
+                    author: this.deepStreamService.user.idPerfil,
                     content: form.controls.message.value
                 });
                 const systemNotification = this.deepStreamService.session.record.getList('system-notification');
@@ -114,10 +114,11 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    author: 'this.user',
-                    content: value
+                    author: this.deepStreamService.user.idPerfil,
+                    content: value.text
                 });
                 this.list.addEntry(recordName);
+                value.component.directiveRef.scrollToBottom();
             });
         }
     }

@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../shared/services/deep-stream.service';
 import { SharedModule } from '../shared/shared.module';
 import { ChatContactsComponent } from './chat-contacts/chat-contacts.component';
@@ -11,6 +12,9 @@ import { ChatNavbarComponent } from './chat-navbar/chat-navbar.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { ChatService } from './services/chat.service';
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true
+};
 
 @NgModule({
     imports: [
@@ -18,7 +22,8 @@ import { ChatService } from './services/chat.service';
         ReactiveFormsModule,
         HttpClientModule,
         SharedModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        PerfectScrollbarModule
     ],
     declarations: [
         ChatDashboardComponent,
@@ -31,7 +36,11 @@ import { ChatService } from './services/chat.service';
     ],
     providers: [
         DeepStreamService,
-        ChatService
+        ChatService,
+        {
+            provide: PERFECT_SCROLLBAR_CONFIG,
+            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+        }
     ]
 })
 export class ChatModule { }
