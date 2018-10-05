@@ -1,32 +1,29 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { uuid } from '../../shared/utils/uuid';
+import { ChatWindowComponent } from '../chat-window/chat-window.component';
 
 @Component({
     selector: 'ci-chat-dashboard',
     templateUrl: './chat-dashboard.component.html',
     styleUrls: ['./chat-dashboard.component.scss']
 })
-export class ChatDashboardComponent implements OnInit, OnChanges {
+export class ChatDashboardComponent implements OnInit {
 
+    @ViewChild('windowChat') windowChat: ChatWindowComponent;
     public timeline = [];
-    public systemMessageForm: FormGroup;
     private contact: any;
     private list: any;
     private queryParams: Params;
 
     constructor(
         private deepStreamService: DeepStreamService,
-        private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private snackBar: MatSnackBar
     ) {
-        this.systemMessageForm = this.formBuilder.group({
-            message: ['', [Validators.required]]
-        });
+
     }
 
     ngOnInit(): void {
@@ -40,28 +37,6 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
         });
         this.queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams);
         this.initChat(this.queryParams['id']);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.contact) {
-            // this.initChat(this.contact.idPerfil);
-        }
-    }
-
-    addSystemMessage(form: FormGroup) {
-        if (form.valid) {
-            const recordName = `status/${uuid()}`
-            const record = this.deepStreamService.session.record.getRecord(recordName);
-            record.whenReady(message => {
-                // data has now been loaded
-                message.set({
-                    author: this.deepStreamService.user.idPerfil,
-                    content: form.controls.message.value
-                });
-                const systemNotification = this.deepStreamService.session.record.getList('system-notification');
-                systemNotification.addEntry(recordName);
-            });
-        }
     }
 
     /**
@@ -91,8 +66,10 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
                 for (let i = 0; i < entries.length; i++) {
                     this.deepStreamService.session.record.getRecord(entries[i]).whenReady(record => {
                         record.subscribe(data => {
-                            console.log(data);
                             this.timeline.unshift(data);
+                            setTimeout(() => {
+                                this.windowChat.chatbox.directiveRef.scrollToBottom();
+                            }, 200);
                         }, true);
                     });
                 }
@@ -101,6 +78,9 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
                     this.deepStreamService.session.record.getRecord(recordName).whenReady(record => {
                         record.subscribe(data => {
                             this.timeline.unshift(data);
+                            setTimeout(() => {
+                                this.windowChat.chatbox.directiveRef.scrollToBottom();
+                            }, 200);
                         }, true);
                     });
                 });
@@ -119,7 +99,6 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
                     content: value.text
                 });
                 this.list.addEntry(recordName);
-                value.component.directiveRef.scrollToBottom();
             });
         }
     }

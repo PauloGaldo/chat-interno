@@ -1,6 +1,9 @@
 <mat-toolbar fxLayout="column" fxFlex="100" class="toolbar" color="primary">
-  <mat-toolbar-row>
-    <span fxFlex="15">CHAT INTERNO</span>
-    <span fxFlex></span>    
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span fxFlex="15">CHAT INTERNO</span>
+        <span fxFlex></span>
+        <button mat-icon-button (click)="openBroadcast()">
+            <mat-icon>speaker_notes</mat-icon>
+        </button>
+    </mat-toolbar-row>
 </mat-toolbar>

@@ -28,7 +28,6 @@ export class ChatWindowComponent implements OnInit {
     }
 
     isUserAuthor(user) {
-        console.log(user);
         if (user.author === this.deepStreamService.user.idPerfil) {
             return 'me';
         } else {

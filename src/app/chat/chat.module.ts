@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../shared/services/deep-stream.service';
 import { SharedModule } from '../shared/shared.module';
+import { ChatBroadcastComponent } from './chat-broadcast/chat-broadcast.component';
 import { ChatContactsComponent } from './chat-contacts/chat-contacts.component';
 import { ChatDashboardComponent } from './chat-dashboard/chat-dashboard.component';
 import { ChatNavbarComponent } from './chat-navbar/chat-navbar.component';
@@ -29,7 +30,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ChatDashboardComponent,
         ChatWindowComponent,
         ChatContactsComponent,
-        ChatNavbarComponent
+        ChatNavbarComponent,
+        ChatBroadcastComponent
     ],
     exports: [
         ChatDashboardComponent
@@ -41,6 +43,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         }
+    ],
+    entryComponents: [
+        ChatBroadcastComponent
     ]
 })
 export class ChatModule { }

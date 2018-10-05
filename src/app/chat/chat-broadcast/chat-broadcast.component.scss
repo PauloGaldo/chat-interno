@@ -1,0 +1,21 @@
+.chat-broadcast {
+    height: 100%;
+    .toolbar {
+        margin: 0;
+        .row-button {
+            height: 20px;
+            .add-button {
+                margin-top: 15px;
+            }
+        }
+    }
+    .body {
+        height: calc(100% - 64px);
+        max-height: none;
+        padding: 0;
+        margin: 0;
+        form {
+            margin: 20px;
+        }
+    }
+}

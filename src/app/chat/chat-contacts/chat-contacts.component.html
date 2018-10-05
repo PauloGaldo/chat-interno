@@ -1,7 +1,7 @@
 <div class="contacts-container">
     <mat-list>
         <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}" (click)="selectContact(contact)">
-            <mat-icon matListIcon>folder</mat-icon>
+            <mat-icon matListIcon>account_circle</mat-icon>
             <div matLine>{{contact.idPerfil}}</div>
         </mat-list-item>
     </mat-list>
