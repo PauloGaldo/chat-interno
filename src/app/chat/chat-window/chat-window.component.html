@@ -1,22 +1,24 @@
 <div class="chat-window" fxLayout="row wrap">
     <div fxFlex="100">
-        <!-- <ul>
-            <li *ngFor="let message of messages.reverse()">
-                {{message.content}}
-            </li>
-        </ul> -->
-        <perfect-scrollbar class="wrapper" #chatbox [config]="config">
+        <perfect-scrollbar class="wrapper" #chatbox [config]="config" id="windowChatBox">
             <div class="message-wrapper" *ngFor="let message of messages.reverse()" [ngClass]="isUserAuthor(message)">
                 <div class="circle-wrapper animated bounceIn"></div>
-                <div class="text-wrapper animated fadeIn">
+                <div class="text-wrapper animated fadeIn" *ngIf="message.content">
                     {{message.content}}
+                </div>
+                <div class="text-wrapper animated fadeIn" *ngIf="message.object">
+                    <a>{{message.object.filename}}</a>
                 </div>
             </div>
         </perfect-scrollbar>
         <form class="form-chat" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm)" fxFlex="100" fxLayout="row wrap"
             autocomplete="off">
+            <input type="file" formControlName="file" #file type="file" [hidden]="true" (change)="uploadFile(file.files[0])" />
             <mat-form-field fxFlex="100">
                 <input matInput formControlName="message" (keyup.enter)="sendMessage(messageForm)" autocomplete="off">
+                <button mat-icon-button matSuffix type="button" #upload (click)="file.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
                 <button mat-icon-button matSuffix>
                     <mat-icon>send</mat-icon>
                 </button>

@@ -30,10 +30,11 @@ export class ChatDashboardComponent implements OnInit {
         // SNACKBAR CON NOTIFICACIONES DE SISTEMA
         this.deepStreamService.enableSystemNotification();
         this.deepStreamService.systemNotificationAnnounced.subscribe(data => {
-            this.snackBar.open(data.content, null, {
-                duration: 2000,
+            this.snackBar.open(`${data.content.type}: ${data.content.message}`, null, {
+                duration: 4000,
                 verticalPosition: 'top'
             });
+            this.deepStreamService.playNotificationSound();
         });
         this.queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams);
         this.initChat(this.queryParams['id']);
@@ -69,6 +70,7 @@ export class ChatDashboardComponent implements OnInit {
                             this.timeline.unshift(data);
                             setTimeout(() => {
                                 this.windowChat.chatbox.directiveRef.scrollToBottom();
+                                console.log(this.timeline[0]);
                             }, 200);
                         }, true);
                     });
@@ -80,6 +82,7 @@ export class ChatDashboardComponent implements OnInit {
                             this.timeline.unshift(data);
                             setTimeout(() => {
                                 this.windowChat.chatbox.directiveRef.scrollToBottom();
+                                console.log(this.timeline[0]);
                             }, 200);
                         }, true);
                     });
@@ -94,10 +97,13 @@ export class ChatDashboardComponent implements OnInit {
             const record = this.deepStreamService.session.record.getRecord(recordName);
             record.whenReady(message => {
                 // data has now been loaded
-                message.set({
-                    author: this.deepStreamService.user.idPerfil,
-                    content: value.text
-                });
+                if (value.text) {
+                    message.set({
+                        author: this.deepStreamService.user.idPerfil,
+                        content: value.object ? null : value.text,
+                        datetime: new Date().getTime()
+                    });
+                }
                 this.list.addEntry(recordName);
             });
         }

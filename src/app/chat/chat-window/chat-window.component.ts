@@ -19,7 +19,8 @@ export class ChatWindowComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private deepStreamService: DeepStreamService) {
         this.messageForm = this.formBuilder.group({
-            message: ''
+            message: '',
+            file: ''
         });
     }
 
@@ -43,7 +44,24 @@ export class ChatWindowComponent implements OnInit {
         if (form.controls.message.value) {
             this.send.emit({
                 text: form.controls.message.value,
-                component: this.chatbox
+                object: null,
+                datetime: new Date().getTime()
+            });
+            this.messageForm.reset();
+        }
+    }
+
+
+    /**
+     * Metodo para setear imagen
+     * @param file Archivo de tipo imagen png/jpg
+     */
+    uploadFile(file: any) {
+        if (file) {
+            this.send.emit({
+                text: '',
+                object: file,
+                datetime: new Date().getTime()
             });
             this.messageForm.reset();
         }

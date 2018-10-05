@@ -2,7 +2,10 @@
     <mat-toolbar-row>
         <span fxFlex="15">CHAT INTERNO</span>
         <span fxFlex></span>
-        <button mat-icon-button (click)="openBroadcast()">
+        <button mat-icon-button (click)="printActualChat()" matTooltip="Imprimir chat actual">
+            <mat-icon>print</mat-icon>
+        </button>
+        <button mat-icon-button (click)="openBroadcast()" matTooltip="Enviar notificacion de sistema">
             <mat-icon>speaker_notes</mat-icon>
         </button>
     </mat-toolbar-row>

@@ -51,4 +51,9 @@ export class DeepStreamService {
             });
         });
     }
+
+    playNotificationSound(): void {
+        var audio = new Audio('assets/sounds/notification.mp3');
+        audio.play();
+    }
 }

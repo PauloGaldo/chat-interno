@@ -13,8 +13,7 @@ $trans: 0.3s ease;
     max-height: calc(100% - 64px);
     .wrapper {
         height: 100%;
-        width: 100%;
-        // overflow: hidden;
+        width: 100%; // overflow: hidden;
         background-color: white;
         transition: $trans;
         .message-wrapper {
@@ -81,10 +80,15 @@ $trans: 0.3s ease;
             }
         }
     }
-    
     .form-chat {
         position: fixed;
         bottom: 0;
         width: 68%;
+        button {
+            margin: 0 10px;
+        }
+        .mat-icon.material-icons {
+            font-size: 25px;
+        }
     }
 }
