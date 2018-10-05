@@ -91,6 +91,7 @@ export class ChatDashboardComponent implements OnInit, OnChanges {
                 for (let i = 0; i < entries.length; i++) {
                     this.deepStreamService.session.record.getRecord(entries[i]).whenReady(record => {
                         record.subscribe(data => {
+                            console.log(data);
                             this.timeline.unshift(data);
                         }, true);
                     });

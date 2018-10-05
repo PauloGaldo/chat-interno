@@ -22,7 +22,8 @@ export class DeepStreamService {
     public ds: any;
 
     get user(): any {
-        return this._user;
+        const _user = JSON.parse(localStorage.getItem('user'));
+        return _user;
     };
 
     get session(): any {
