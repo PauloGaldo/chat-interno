@@ -14,4 +14,8 @@ export class ChatService {
         return this.http.get('assets/mocks/contacts.json');
     }
 
+    getMessagesList(): Observable<any> {
+        return this.http.get('assets/mocks/messages.json');
+    }
+
 }
