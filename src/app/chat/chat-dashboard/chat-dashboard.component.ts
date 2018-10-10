@@ -97,13 +97,12 @@ export class ChatDashboardComponent implements OnInit {
             const record = this.deepStreamService.session.record.getRecord(recordName);
             record.whenReady(message => {
                 // data has now been loaded
-                if (value.text) {
-                    message.set({
-                        author: this.deepStreamService.user.idPerfil,
-                        content: value.object ? null : value.text,
-                        datetime: new Date().getTime()
-                    });
-                }
+                message.set({
+                    author: this.deepStreamService.user.idPerfil,
+                    content: value.object ? null : value.text,
+                    object: value.object ? value.object : null,
+                    datetime: new Date().getTime()
+                });
                 this.list.addEntry(recordName);
             });
         }

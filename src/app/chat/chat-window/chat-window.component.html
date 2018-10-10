@@ -7,7 +7,7 @@
                     {{message.content}}
                 </div>
                 <div class="text-wrapper animated fadeIn" *ngIf="message.object">
-                    <a>{{message.object.filename}}</a>
+                    <a download [href]="message.object.fileDownloadUri">{{message.object.fileName}}</a>
                 </div>
             </div>
         </perfect-scrollbar>

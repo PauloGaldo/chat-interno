@@ -18,4 +18,10 @@ export class ChatService {
         return this.http.get('assets/mocks/messages.json');
     }
 
+    uploadFile(file: File): Observable<any> {
+        const data = new FormData();
+        data.append('file', file);
+        return this.http.post('file/uploadFile', data);
+    }
+
 }

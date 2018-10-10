@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PerfectScrollbarComponent, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
+import { ChatService } from '../services/chat.service';
 
 @Component({
     selector: 'ci-chat-window',
@@ -17,7 +18,11 @@ export class ChatWindowComponent implements OnInit {
 
     public messageForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private deepStreamService: DeepStreamService) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private deepStreamService: DeepStreamService,
+        private chatService: ChatService
+    ) {
         this.messageForm = this.formBuilder.group({
             message: '',
             file: ''
@@ -58,12 +63,15 @@ export class ChatWindowComponent implements OnInit {
      */
     uploadFile(file: any) {
         if (file) {
-            this.send.emit({
-                text: '',
-                object: file,
-                datetime: new Date().getTime()
+            this.chatService.uploadFile(file).subscribe(response => {
+                console.log(response);
+                this.send.emit({
+                    text: '',
+                    object: response,
+                    datetime: new Date().getTime()
+                });
+                this.messageForm.reset();
             });
-            this.messageForm.reset();
         }
     }
 

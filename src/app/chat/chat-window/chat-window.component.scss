@@ -27,6 +27,9 @@ $trans: 0.3s ease;
                 width: $navHeight/1.5;
                 border-radius: 50%;
             }
+            a {
+                color: $white;
+            }
             .text-wrapper {
                 padding: ($navHeight - ($navHeight/1.5)) / 2;
                 min-height: $navHeight/1.5;

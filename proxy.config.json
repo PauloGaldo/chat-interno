@@ -1,0 +1,15 @@
+{
+    "/file": {
+        "target": {
+            "host": "localhost",
+            "protocol": "http",
+            "port": 11000
+        },
+        "pathRewrite": {
+            "^/file": ""
+        },
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}
