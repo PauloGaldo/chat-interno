@@ -13,8 +13,7 @@ export class ChatContactsComponent implements OnInit {
     public contacts = [];
     public chats = [];
     public activeContact: any;
-    public tabs = [];
-    public selected;
+    public optionGroup = false;
 
         constructor(
             private activatedRoute: ActivatedRoute,
@@ -61,14 +60,13 @@ selectContact(contact: any): void {
         this.changed.emit(contact);
     }
 }
-// agregar tab
-addTab() {
-    this.tabs.push('New');
-    this.selected.setValue(this.tabs.length - 1);
+
+createGroup() {
+this.optionGroup = true;
 }
- // eliminar tab
-removeTab(index: number) {
-    this.tabs.splice(index, 1);
+
+addContactGroup(contact: any) {
+
 }
 
 }
