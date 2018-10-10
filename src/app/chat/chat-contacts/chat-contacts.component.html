@@ -6,7 +6,7 @@
                 <mat-icon class="example-tab-icon">contacts</mat-icon>
                 Contactos
             </ng-template>
-            <mat-list *ngIf="!optionGroup">
+            <mat-list *ngIf="optionGroup === false">
                 <mat-list-item (click)="createGroup()">
                     <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                 </mat-list-item>
@@ -17,13 +17,19 @@
                 </mat-list-item>
             </mat-list>
             <!--Crear Grupo-->
-            <mat-list *ngIf="optionGroup">
-                <mat-list-item>
-                    <mat-icon matListIcon>search</mat-icon>
-                    <mat-form-field>
-                        <input matInput placeholder="Buscar Contacto">
-                    </mat-form-field>
-                </mat-list-item>
+            <mat-list *ngIf="optionGroup === true ">
+                <div>
+                    <!--Lista de contactos seleccionados-->
+                    <div *ngIf="contactSelected === true">
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let contact of contactsGroup">
+                                <div matLine>{{contact.idPerfil}}</div>
+                                <mat-icon>close</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>
+                        <button mat-raised-button color="primary">Crear Grupo</button>
+                    </div>
+                </div>
                 <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                     (click)="addContactGroup(contact)">
                     <mat-icon matListIcon>account_circle</mat-icon>

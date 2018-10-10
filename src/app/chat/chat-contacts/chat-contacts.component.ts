@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'ci-chat-contacts',
@@ -12,8 +13,10 @@ export class ChatContactsComponent implements OnInit {
     @Output() changed: any = new EventEmitter<any>();
     public contacts = [];
     public chats = [];
+    public contactsGroup = [];
     public activeContact: any;
     public optionGroup = false;
+    public contactSelected = false;
 
         constructor(
             private activatedRoute: ActivatedRoute,
@@ -61,12 +64,24 @@ selectContact(contact: any): void {
     }
 }
 
+// Crear grupo
+
 createGroup() {
 this.optionGroup = true;
 }
 
-addContactGroup(contact: any) {
+// Agregar contacto al grupo
 
+addContactGroup(contact: any) {
+this.contactSelected = true;
+this.contactsGroup.push(contact);
 }
+
+// Eliminar contacto del Grupo
+
+deleteContactGroup(contact: any) {
+    contact = null;
+}
+
 
 }
