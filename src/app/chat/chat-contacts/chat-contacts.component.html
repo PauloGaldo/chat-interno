@@ -1,27 +1,41 @@
 <div class="contacts-container">
-    <mat-tab-group mat-stretch-tabs>
+    <mat-tab-group mat-stretch-tabs class="tabs-group">
+        <!--Tab Chats-->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">message</mat-icon>
+                Chats
+            </ng-template>
+            <form [formGroup]="searchMessagesForm">
+                <mat-form-field appearance="outline" class="search-item">
+                    <mat-icon matPrefix matListIcon>search</mat-icon>
+                    <input matInput formControlName="filter" (blur)="searchMessagesForm.reset()" placeholder="Buscar mensajes"
+                        (keyup.enter)="filterMessagesOnChat(searchMessagesForm)">
+                </mat-form-field>
+            </form>
+            <div class="list-chat">
+                <mat-list>
+                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
+                        (click)="selectContact(contact)">
+                        <mat-icon matListIcon>message</mat-icon>
+                        <div matLine>{{contact.idPerfil}}</div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </mat-tab>
         <!--Tab Contacts-->
         <mat-tab>
             <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon">contacts</mat-icon>
                 Contactos
             </ng-template>
-            <mat-list *ngIf="optionGroup === false">
-                <mat-list-item (click)="createGroup()">
-                    <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
-                </mat-list-item>
-                <mat-list-item>
-                    <mat-icon matListIcon>search</mat-icon>
-                    <mat-form-field>
-                        <input matInput placeholder="Buscar Chat">
-                    </mat-form-field>
-                </mat-list-item>
-                <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                    (click)="selectContact(contact)">
-                    <mat-icon matListIcon>account_circle</mat-icon>
-                    <div matLine>{{contact.idPerfil}}</div>
-                </mat-list-item>
-            </mat-list>
+            <form [formGroup]="searchContactsForm">
+                <mat-form-field appearance="outline" class="search-item">
+                    <mat-icon matPrefix matListIcon>search</mat-icon>
+                    <input matInput formControlName="filter" (blur)="searchContactsForm.reset()" placeholder="Buscar contactos"
+                        (keyup.enter)="filterMessagesOnChat(searchContactsForm)">
+                </mat-form-field>
+            </form>
             <!--Crear Grupo-->
             <div *ngIf="contactsGroup.length > 0">
                 <mat-chip-list>
@@ -32,33 +46,26 @@
                 </mat-chip-list>
                 <button mat-raised-button color="primary">Crear Grupo</button>
             </div>
-            <mat-list *ngIf="optionGroup === true ">
-                <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                    (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
-                    <mat-icon matListIcon>account_circle</mat-icon>
-                    <div matLine>{{contact.idPerfil}}</div>
-                </mat-list-item>
-            </mat-list>
-        </mat-tab>
-        <!--Tab Chats-->
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon">message</mat-icon>
-                Chats
-            </ng-template>
-            <mat-list>
-                <mat-list-item>
-                    <mat-icon matListIcon>search</mat-icon>
-                    <mat-form-field>
-                        <input matInput placeholder="Buscar Chat">
-                    </mat-form-field>
-                </mat-list-item>
-                <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                    (click)="selectContact(contact)">
-                    <mat-icon matListIcon>message</mat-icon>
-                    <div matLine>{{contact.idPerfil}}</div>
-                </mat-list-item>
-            </mat-list>
+            <div class="list-contacts">
+                <mat-list *ngIf="!optionGroup">
+                    <mat-list-item (click)="createGroup()">
+                        <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
+                        (click)="selectContact(contact)">
+                        <mat-icon matListIcon>account_circle</mat-icon>
+                        <div matLine>{{contact.idPerfil}}</div>
+                    </mat-list-item>
+                </mat-list>
+                <mat-list *ngIf="optionGroup">
+                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
+                        (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
+                        <mat-icon matListIcon>account_circle</mat-icon>
+                        <div matLine>{{contact.idPerfil}}</div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
         </mat-tab>
     </mat-tab-group>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
 
@@ -16,12 +17,23 @@ export class ChatContactsComponent implements OnInit {
     public activeContact: any;
     public optionGroup = false;
     public contactDelete = false;
+    public searchMessagesForm: FormGroup;
+    public searchContactsForm: FormGroup;
+
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private chatService: ChatService
+        private chatService: ChatService,
+        private formbuilder: FormBuilder
     ) {
+        this.searchMessagesForm = this.formbuilder.group({
+            filter: ''
+        });
+        this.searchContactsForm = this.formbuilder.group({
+            filter: ''
+        });
+
         // CARGAR MOCK DE CONTACTOS
         this.chatService.getContactList().subscribe(response => {
             this.contacts = response.data;
@@ -29,7 +41,7 @@ export class ChatContactsComponent implements OnInit {
 
         // CARGAR MOCK DE CHATS
         this.chatService.getMessagesList().subscribe(response => {
-            this.chats = response.data;
+            // this.chats = response.data;
         });
     }
 
@@ -84,6 +96,16 @@ export class ChatContactsComponent implements OnInit {
     }
 
     /**
+     * Funcion para filtrar mensajes de chat
+     * @param form formulario de busqueda
+     */
+    filterMessagesOnChat(form: FormGroup) {
+        if (form.valid) {
+            console.log(form);
+        }
+    }
+
+    /**
      * Funcion para determinar si el contacto se encuentra en el listado de contactos para grupo seleccionado
      * @param contact contacto del listado
      */
@@ -94,5 +116,7 @@ export class ChatContactsComponent implements OnInit {
         console.log(result);
         return result ? true : false;
     }
+
+
 
 }

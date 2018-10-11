@@ -1,7 +1,20 @@
-.contacts-container{
-    .active{
-        background: lightgrey;
-        height: 100%;
+.contacts-container {
+    .tabs-group {
+        height: calc(100vh - 64px);
+        .list-chat, .list-contacts {
+            height: calc(100% - 90px);
+            overflow: auto;
+            width: 100%;
+            display: inline-flex;
+            .mat-list{
+                width: 100%;
+            }
+        }
+        .active {
+            background: lightgrey; // height: 100%;
+        }
+        .search-item {
+            width: 100%;
+        }
     }
-    
 }
