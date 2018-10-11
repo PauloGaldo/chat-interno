@@ -15,7 +15,6 @@ export class ChatContactsComponent implements OnInit {
     public contactsGroup = [];
     public activeContact: any;
     public optionGroup = false;
-    public contactSelected = false;
     public contactDelete = false;
 
     constructor(
@@ -66,12 +65,12 @@ export class ChatContactsComponent implements OnInit {
 
     // Crear grupo
     createGroup() {
+        this.contactsGroup = [];
         this.optionGroup = true;
     }
 
     // Agregar contacto al grupo
     addContactGroup(contact: any) {
-        this.contactSelected = true;
         this.contactsGroup.push(contact);
     }
 
@@ -82,6 +81,18 @@ export class ChatContactsComponent implements OnInit {
      */
     deleteContactGroup(index: any) {
         this.contactsGroup.splice(index, 1);
+    }
+
+    /**
+     * Funcion para determinar si el contacto se encuentra en el listado de contactos para grupo seleccionado
+     * @param contact contacto del listado
+     */
+    isContactGroupSelected(contact: any): boolean {
+        const result = this.contactsGroup.filter(item => {
+            return item.idPerfil === contact.idPerfil
+        })[0];
+        console.log(result);
+        return result ? true : false;
     }
 
 }

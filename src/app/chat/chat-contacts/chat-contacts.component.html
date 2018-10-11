@@ -23,21 +23,18 @@
                 </mat-list-item>
             </mat-list>
             <!--Crear Grupo-->
+            <div *ngIf="contactsGroup.length > 0">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let contact of contactsGroup; let i = index" [attr.data-index]="i">
+                        <div matLine>{{contact.idPerfil}}</div>
+                        <mat-icon (click)="deleteContactGroup(i)">close</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+                <button mat-raised-button color="primary">Crear Grupo</button>
+            </div>
             <mat-list *ngIf="optionGroup === true ">
-                <div>
-                    <!--Lista de contactos seleccionados-->
-                    <div *ngIf="contactSelected === true">
-                        <mat-chip-list>
-                            <mat-chip *ngFor="let contact of contactsGroup; let i = index" [attr.data-index]="i">
-                                <div matLine>{{contact.idPerfil}}</div>
-                                <mat-icon (click)="deleteContactGroup(i)">close</mat-icon>
-                            </mat-chip>
-                        </mat-chip-list>
-                        <button mat-raised-button color="primary">Crear Grupo</button>
-                    </div>
-                </div>
                 <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                    (click)="addContactGroup(contact)">
+                    (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
                     <mat-icon matListIcon>account_circle</mat-icon>
                     <div matLine>{{contact.idPerfil}}</div>
                 </mat-list-item>
