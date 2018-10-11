@@ -28,9 +28,9 @@
                     <!--Lista de contactos seleccionados-->
                     <div *ngIf="contactSelected === true">
                         <mat-chip-list>
-                            <mat-chip *ngFor="let contact of contactsGroup">
+                            <mat-chip *ngFor="let contact of contactsGroup; let i = index" [attr.data-index]="i">
                                 <div matLine>{{contact.idPerfil}}</div>
-                                <mat-icon (click)="deleteContactGroup(c)" >close</mat-icon>
+                                <mat-icon (click)="deleteContactGroup(i)">close</mat-icon>
                             </mat-chip>
                         </mat-chip-list>
                         <button mat-raised-button color="primary">Crear Grupo</button>
