@@ -45,6 +45,7 @@
                     </mat-chip>
                 </mat-chip-list>
                 <button mat-raised-button color="primary">Crear Grupo</button>
+                <button mat-raised-button color="accent" (click)="cancelGroup()">Cancelar</button>
             </div>
             <div class="list-contacts">
                 <mat-list *ngIf="!optionGroup">
@@ -59,6 +60,10 @@
                     </mat-list-item>
                 </mat-list>
                 <mat-list *ngIf="optionGroup">
+                    <mat-list-item (click)="createGroup()" *ngIf="optionGroupShow || contactsGroup.length > 0">
+                        <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
                     <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                         (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>

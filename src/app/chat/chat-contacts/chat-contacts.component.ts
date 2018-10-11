@@ -16,7 +16,7 @@ export class ChatContactsComponent implements OnInit {
     public contactsGroup = [];
     public activeContact: any;
     public optionGroup = false;
-    public contactDelete = false;
+    public optionGroupShow = false;
     public searchMessagesForm: FormGroup;
     public searchContactsForm: FormGroup;
 
@@ -111,10 +111,15 @@ export class ChatContactsComponent implements OnInit {
      */
     isContactGroupSelected(contact: any): boolean {
         const result = this.contactsGroup.filter(item => {
-            return item.idPerfil === contact.idPerfil
+            return item.idPerfil === contact.idPerfil;
         })[0];
         console.log(result);
         return result ? true : false;
+    }
+
+    cancelGroup() {
+        this.contactsGroup = [];
+        this.optionGroupShow = true;
     }
 
 
