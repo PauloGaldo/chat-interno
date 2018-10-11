@@ -10,6 +10,12 @@
                 <mat-list-item (click)="createGroup()">
                     <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                 </mat-list-item>
+                <mat-list-item>
+                    <mat-icon matListIcon>search</mat-icon>
+                    <mat-form-field>
+                        <input matInput placeholder="Buscar Chat">
+                    </mat-form-field>
+                </mat-list-item>
                 <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                     (click)="selectContact(contact)">
                     <mat-icon matListIcon>account_circle</mat-icon>
@@ -24,7 +30,7 @@
                         <mat-chip-list>
                             <mat-chip *ngFor="let contact of contactsGroup">
                                 <div matLine>{{contact.idPerfil}}</div>
-                                <mat-icon>close</mat-icon>
+                                <mat-icon (click)="deleteContactGroup(c)" >close</mat-icon>
                             </mat-chip>
                         </mat-chip-list>
                         <button mat-raised-button color="primary">Crear Grupo</button>

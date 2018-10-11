@@ -17,6 +17,7 @@ export class ChatContactsComponent implements OnInit {
     public activeContact: any;
     public optionGroup = false;
     public contactSelected = false;
+    public contactDelete = false;
 
         constructor(
             private activatedRoute: ActivatedRoute,
@@ -80,8 +81,13 @@ this.contactsGroup.push(contact);
 // Eliminar contacto del Grupo
 
 deleteContactGroup(contact: any) {
-    contact = null;
-}
-
-
+    for (let c of this.contactsGroup) {
+        if (contact === c ) {
+            c = null;
+            console.log('contacto borrado');
+            console.log(this.contactsGroup);
+            this.contactDelete = true;
+        }
+    }
+  }
 }
