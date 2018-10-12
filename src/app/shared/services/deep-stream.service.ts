@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as deepstream from 'deepstream.io-client-js';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class DeepStreamService {
@@ -30,7 +31,7 @@ export class DeepStreamService {
         return this._session;
     }
 
-    constructor() {
+    constructor(private http: HttpClient) {
         this.ds = deepstream('localhost:6020');
         this._session = this.ds.login();
         this.systemNotification = this._session.record.getList('system-notification');
@@ -52,6 +53,21 @@ export class DeepStreamService {
         });
     }
 
+    /**
+     * Funcion para realizar login de usuario en deepstream
+     * @param username nombre de usuario
+     * @param token token de aplicacion
+     */
+    login(username: string, token: string): Observable<any> {
+        return this.http.post('', {
+            username: username,
+            token: token
+        });
+    }
+
+    /**
+     * Metodo para reproducir sonido de notificacion
+     */
     playNotificationSound(): void {
         var audio = new Audio('assets/sounds/notification.mp3');
         audio.play();
