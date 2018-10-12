@@ -1,38 +1,37 @@
 {
     "data": [
         {
-        "id": "DESPBOMLON1",
-        "idUsuarioUPD": "admin",
-        "username": "usuario1",
-        "name": "name1",
-        "address": "addres1",
-        "station": "station1",
-        "agency": "agency1",
-        "jurisdiction": "jurisdiction",
-        "avatarUrl": "http://placehold.it/32x32"
-    }
-    {
-        "id": "DESPBOMLON2",
-        "idUsuarioUPD": "admin",
-        "username": "usuario2",
-        "name": "name2",
-        "address": "addres2",
-        "station": "station2",
-        "agency": "agency2",
-        "jurisdiction": "jurisdiction",
-        "avatarUrl": "http://placehold.it/32x32"
-    }
-    {
-        "id": "DESPBOMLON3",
-        "idUsuarioUPD": "admin",
-        "username": "usuario3",
-        "name": "name3",
-        "address": "addres3",
-        "station": "station3",
-        "agency": "agency3",
-        "jurisdiction": "jurisdiction",
-        "avatarUrl": "http://placehold.it/32x32"
-    }
-        
+            "id": "DESPBOMLON1",
+            "idUsuarioUPD": "admin",
+            "username": "usuario1",
+            "name": "name1",
+            "address": "addres1",
+            "station": "station1",
+            "agency": "agency1",
+            "jurisdiction": "jurisdiction",
+            "avatarUrl": "http://placehold.it/32x32"
+        },
+        {
+            "id": "DESPBOMLON2",
+            "idUsuarioUPD": "admin",
+            "username": "usuario2",
+            "name": "name2",
+            "address": "addres2",
+            "station": "station2",
+            "agency": "agency2",
+            "jurisdiction": "jurisdiction",
+            "avatarUrl": "http://placehold.it/32x32"
+        },
+        {
+            "id": "DESPBOMLON3",
+            "idUsuarioUPD": "admin",
+            "username": "usuario3",
+            "name": "name3",
+            "address": "addres3",
+            "station": "station3",
+            "agency": "agency3",
+            "jurisdiction": "jurisdiction",
+            "avatarUrl": "http://placehold.it/32x32"
+        }
     ]
 }

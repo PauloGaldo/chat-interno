@@ -115,7 +115,7 @@ export class ChatDashboardComponent implements OnInit {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    id:this.deepStreamService.id,
+                    id: '',
                     emisor: this.deepStreamService.user,
                     text: value.object ? null : value.text,
                     object: value.object ? value.object : null,
