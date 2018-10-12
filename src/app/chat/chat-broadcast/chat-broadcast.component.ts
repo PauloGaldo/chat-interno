@@ -38,7 +38,7 @@ export class ChatBroadcastComponent implements OnInit {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    author: this.deepStreamService.user.idPerfil,
+                    author: this.deepStreamService.user.id,
                     content: {
                         message: form.controls.message.value,
                         type: form.controls.type.value,

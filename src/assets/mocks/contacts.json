@@ -1,164 +1,38 @@
 {
     "data": [
         {
-            "idPerfil": "DESPBOMLON0",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON1",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON2",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON3",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON4",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON5",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON6",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON8",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON9",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON10",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON11",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON12",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON13",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON14",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON15",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        },
-        {
-            "idPerfil": "DESPBOMLON16",
-            "idUsuarioUPD": "admin",
-            "perfil": "BOMBEROS LEON",
-            "subcentro": {
-                "idSubCentro": "LEON",
-                "idUsuarioUPD": "Administrador",
-                "subCentro": "LEON"
-            }
-        }
+        "id": "DESPBOMLON1",
+        "idUsuarioUPD": "admin",
+        "username": "usuario1",
+        "name": "name1",
+        "address": "addres1",
+        "station": "station1",
+        "agency": "agency1",
+        "jurisdiction": "jurisdiction",
+        "avatarUrl": "http://placehold.it/32x32"
+    }
+    {
+        "id": "DESPBOMLON2",
+        "idUsuarioUPD": "admin",
+        "username": "usuario2",
+        "name": "name2",
+        "address": "addres2",
+        "station": "station2",
+        "agency": "agency2",
+        "jurisdiction": "jurisdiction",
+        "avatarUrl": "http://placehold.it/32x32"
+    }
+    {
+        "id": "DESPBOMLON3",
+        "idUsuarioUPD": "admin",
+        "username": "usuario3",
+        "name": "name3",
+        "address": "addres3",
+        "station": "station3",
+        "agency": "agency3",
+        "jurisdiction": "jurisdiction",
+        "avatarUrl": "http://placehold.it/32x32"
+    }
+        
     ]
 }

@@ -1,0 +1,77 @@
+{ "data":[
+    {
+  "id": "DESPBOMLON1",
+  "name": "name3",
+  "lastMessage": {},
+  "emisor": {},
+  "idUsuarioUPD": "admin",
+  "username": "usuario3",
+  "address": "addres3",
+  "station": "station3",
+  "agency": "agency3",
+  "jurisdiction": "jurisdiction",
+  "avatarUrl": "http://placehold.it/32x32",
+  "text": "ExmpleTextContent",
+  "fileURL": "http://placehold.it/32x32",
+  "level": "urgente",
+  "read": true,
+  "timestap": "2018-06-25T00:00:00.000Z",
+  "unreadMessages": "10",
+  "receptors": [
+    null,
+    {},
+    {}
+  ],
+  "listName": "list01"
+}
+{
+  "id": "DESPBOMLON2",
+  "name": "name3",
+  "lastMessage": {},
+  "emisor": {},
+  "idUsuarioUPD": "admin",
+  "username": "usuario3",
+  "address": "addres3",
+  "station": "station3",
+  "agency": "agency3",
+  "jurisdiction": "jurisdiction",
+  "avatarUrl": "http://placehold.it/32x32",
+  "text": "ExmpleTextContent",
+  "fileURL": "http://placehold.it/32x32",
+  "level": "urgente",
+  "read": true,
+  "timestap": "2018-06-25T00:00:00.000Z",
+  "unreadMessages": "10",
+  "receptors": [
+    null,
+    {},
+    {}
+  ],
+  "listName": "list01"
+}
+{
+  "id": "DESPBOMLON3",
+  "name": "name3",
+  "lastMessage": {},
+  "emisor": {},
+  "idUsuarioUPD": "admin",
+  "username": "usuario3",
+  "address": "addres3",
+  "station": "station3",
+  "agency": "agency3",
+  "jurisdiction": "jurisdiction",
+  "avatarUrl": "http://placehold.it/32x32",
+  "text": "ExmpleTextContent",
+  "fileURL": "http://placehold.it/32x32",
+  "level": "urgente",
+  "read": true,
+  "timestap": "2018-06-25T00:00:00.000Z",
+  "unreadMessages": "10",
+  "receptors": [
+    null,
+    {},
+    {}
+  ],
+  "listName": "list01"
+}
+]}
