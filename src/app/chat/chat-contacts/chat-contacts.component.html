@@ -18,7 +18,7 @@
                     <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                         (click)="selectContact(contact)">
                         <mat-icon matListIcon>message</mat-icon>
-                        <div matLine>{{contact.idPerfil}}</div>
+                        <div matLine>{{contact.id}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>
@@ -40,7 +40,7 @@
             <div *ngIf="contactsGroup.length > 0">
                 <mat-chip-list>
                     <mat-chip *ngFor="let contact of contactsGroup; let i = index" [attr.data-index]="i">
-                        <div matLine>{{contact.idPerfil}}</div>
+                        <div matLine>{{contact.id}}</div>
                         <mat-icon (click)="deleteContactGroup(i)">close</mat-icon>
                     </mat-chip>
                 </mat-chip-list>
@@ -56,7 +56,7 @@
                     <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                         (click)="selectContact(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
-                        <div matLine>{{contact.idPerfil}}</div>
+                        <div matLine>{{contact.id}}</div>
                     </mat-list-item>
                 </mat-list>
                 <mat-list *ngIf="optionGroup">
@@ -67,7 +67,7 @@
                     <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
                         (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
-                        <div matLine>{{contact.idPerfil}}</div>
+                        <div matLine>{{contact.id}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PerfectScrollbarComponent, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { ChatService } from '../services/chat.service';
+import { Message } from "../message.model";
+
 
 @Component({
     selector: 'ci-chat-window',
@@ -12,7 +14,7 @@ import { ChatService } from '../services/chat.service';
 export class ChatWindowComponent implements OnInit {
 
     @ViewChild('chatbox') chatbox: PerfectScrollbarComponent;
-    @Input() messages: any[];
+    @Input() messages: Message[];
     @Output() send: any = new EventEmitter<any>();
     public config: PerfectScrollbarConfigInterface = {};
 

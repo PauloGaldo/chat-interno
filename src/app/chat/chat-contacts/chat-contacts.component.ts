@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ChatService } from '../services/chat.service';
+import { Contact } from '../contact.model';
 
 @Component({
     selector: 'ci-chat-contacts',
@@ -14,7 +15,7 @@ export class ChatContactsComponent implements OnInit {
     public contacts = [];
     public chats = [];
     public contactsGroup = [];
-    public activeContact: any;
+    public activeContact: Contact;
     public optionGroup = false;
     public optionGroupShow = false;
     public searchMessagesForm: FormGroup;
@@ -52,9 +53,9 @@ export class ChatContactsComponent implements OnInit {
      * Funcion para determinar que contacto esta activo del listado
      * @param contact contacto del listado
      */
-    isContactActive(contact: any): boolean {
+    isContactActive(contact: Contact): boolean {
         const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-        if (contact.idPerfil === queryParams['id']) {
+        if (contact.id === queryParams['id']) {
             this.activeContact = contact;
             return true;
         }
@@ -65,11 +66,11 @@ export class ChatContactsComponent implements OnInit {
      * Metodo para seleccionar y poner activo un contacto del listado
      * @param contact contacto del listado
      */
-    selectContact(contact: any): void {
+    selectContact(contact: Contact): void {
         if (contact) {
             this.activeContact = contact;
             const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-            queryParams['id'] = contact.idPerfil;
+            queryParams['id'] = contact.id;
             this.router.navigate(['.'], { queryParams: queryParams });
             this.changed.emit(contact);
         }
@@ -82,7 +83,7 @@ export class ChatContactsComponent implements OnInit {
     }
 
     // Agregar contacto al grupo
-    addContactGroup(contact: any) {
+    addContactGroup(contact: Contact) {
         this.contactsGroup.push(contact);
     }
 
@@ -109,9 +110,9 @@ export class ChatContactsComponent implements OnInit {
      * Funcion para determinar si el contacto se encuentra en el listado de contactos para grupo seleccionado
      * @param contact contacto del listado
      */
-    isContactGroupSelected(contact: any): boolean {
+    isContactGroupSelected(contact: Contact): boolean {
         const result = this.contactsGroup.filter(item => {
-            return item.idPerfil === contact.idPerfil;
+            return item.id === contact.id;
         })[0];
         console.log(result);
         return result ? true : false;

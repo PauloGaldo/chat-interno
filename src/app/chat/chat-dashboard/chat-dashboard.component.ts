@@ -4,6 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { uuid } from '../../shared/utils/uuid';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
+import { Contact } from "../contact.model";
+
 
 @Component({
     selector: 'ci-chat-dashboard',
@@ -14,7 +16,7 @@ export class ChatDashboardComponent implements OnInit {
 
     @ViewChild('windowChat') windowChat: ChatWindowComponent;
     public timeline = [];
-    private contact: any;
+    private contact: Contact;
     private list: any;
     private queryParams: Params;
 
@@ -44,12 +46,12 @@ export class ChatDashboardComponent implements OnInit {
      * Metodo para limpiar, cerrar canal anterior de chat y establecer nuevo contacto
      * @param contact contacto de la agenda
      */
-    contactChanged(contact: any): void {
+    contactChanged(contact: Contact): void {
         if (this.list) {
             this.timeline = [];
             this.contact = contact;
             this.list.discard();
-            this.initChat(this.contact.idPerfil);
+            this.initChat(this.contact.id);
         }
     }
 
@@ -98,7 +100,7 @@ export class ChatDashboardComponent implements OnInit {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    author: this.deepStreamService.user.idPerfil,
+                    author: this.deepStreamService.user.id,
                     content: value.object ? null : value.text,
                     object: value.object ? value.object : null,
                     datetime: new Date().getTime()
