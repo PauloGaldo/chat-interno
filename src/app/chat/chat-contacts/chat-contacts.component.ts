@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ChatService } from '../services/chat.service';
 import { Contact } from '../contact.model';
+import { ChatService } from '../services/chat.service';
 
 @Component({
     selector: 'ci-chat-contacts',
@@ -42,7 +42,7 @@ export class ChatContactsComponent implements OnInit {
 
         // CARGAR MOCK DE CHATS
         this.chatService.getMessagesList().subscribe(response => {
-            // this.chats = response.data;
+            this.chats = response.data;
         });
     }
 

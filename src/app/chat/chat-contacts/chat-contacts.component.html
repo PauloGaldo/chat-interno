@@ -15,10 +15,10 @@
             </form>
             <div class="list-chat">
                 <mat-list>
-                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                        (click)="selectContact(contact)">
+                    <mat-list-item *ngFor="let chat of chats" [ngClass]="{'active': isContactActive(chat)}"
+                        (click)="selectContact(chat)">
                         <mat-icon matListIcon>message</mat-icon>
-                        <div matLine>{{contact.id}}</div>
+                        <div matLine>{{chat.id}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>

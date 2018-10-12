@@ -15,7 +15,7 @@ export class ChatService {
     }
 
     getMessagesList(): Observable<any> {
-        return this.http.get('assets/mocks/messages.json');
+        return this.http.get('assets/mocks/chat-entry.json');
     }
 
     uploadFile(file: File): Observable<any> {
