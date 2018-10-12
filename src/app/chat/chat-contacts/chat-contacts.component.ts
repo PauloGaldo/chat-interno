@@ -40,10 +40,7 @@ export class ChatContactsComponent implements OnInit {
             this.contacts = response.data;
         });
 
-        // CARGAR MOCK DE CHATS
-        this.chatService.getMessagesList().subscribe(response => {
-            this.chats = response.data;
-        });
+        
     }
 
     ngOnInit() {

@@ -39,7 +39,7 @@ export class ChatWindowComponent implements OnInit {
         if (user.author === this.deepStreamService.user.idPerfil) {
             return 'me';
         } else {
-            return 'them'
+            return 'them';
         }
     }
 
@@ -51,8 +51,8 @@ export class ChatWindowComponent implements OnInit {
         if (form.controls.message.value) {
             this.send.emit({
                 text: form.controls.message.value,
-                object: null,
-                datetime: new Date().getTime()
+                emisor: this.deepStreamService.user,
+                timestamp: new Date().getTime()
             });
             this.messageForm.reset();
         }

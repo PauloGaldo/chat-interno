@@ -38,12 +38,12 @@ export class ChatBroadcastComponent implements OnInit {
             record.whenReady(message => {
                 // data has now been loaded
                 message.set({
-                    author: this.deepStreamService.user.id,
-                    content: {
-                        message: form.controls.message.value,
-                        type: form.controls.type.value,
-                        datetime: new Date().getTime()
-                    }
+                    id:this.deepStreamService.user.id,
+                    emisor: this.deepStreamService.user,
+                    text:form.controls.message.value,
+                    level:form.controls.type.value,
+                    timestamp: new Date().getTime()
+                    
                 });
                 const systemNotification = this.deepStreamService.session.record.getList('system-notification');
                 systemNotification.addEntry(recordName);
