@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { uuid } from '../../shared/utils/uuid';
@@ -23,9 +23,24 @@ export class ChatDashboardComponent implements OnInit {
     constructor(
         private deepStreamService: DeepStreamService,
         private activatedRoute: ActivatedRoute,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog
     ) {
-
+        this.deepStreamService.login('', '').subscribe(response => {
+            console.log(response);
+        }, error => {
+            // this.dialog.open(ModalErrorComponent, {
+            //     height: '150px',
+            //     width: '600px',
+            //     closeOnNavigation: false,
+            //     disableClose: true,
+            //     autoFocus: true,
+            //     data: {
+            //         error: error,
+            //         message: 'No se ha podido iniciar sesión'
+            //     }
+            // });
+        });
     }
 
     ngOnInit(): void {
