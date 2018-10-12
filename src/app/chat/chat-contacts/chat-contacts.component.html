@@ -17,10 +17,11 @@
             <!-- COLA DE MENSAJES -->
             <div class="list-chat">
                 <mat-list>
-                    <mat-list-item *ngFor="let chat of chats" [ngClass]="{'active': isContactActive(chat)}" (click)="selectChat(chat)">
+                    <mat-list-item *ngFor="let chat of chats" [ngClass]="{'active': isContactActive(chat)}" (click)="selectChat(chat)"
+                        [hidden]="!chat.lastMessage">
                         <mat-icon matListIcon>message</mat-icon>
                         <div matLine>{{chat.name}}</div>
-                        <div matLine>{{chat.lastMessage.text}}</div>
+                        <div matLine>{{chat.lastMessage['text']}}</div>
                         <div matLine align="end">{{chat.lastMessage.timestamp | fromNow}}</div>
                     </mat-list-item>
                 </mat-list>

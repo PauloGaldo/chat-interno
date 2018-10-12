@@ -38,6 +38,7 @@ export class DeepStreamService {
             const entries = list.getEntries();
             for (let i = 0; i < entries.length; i++) {
                 this.session.record.getRecord(entries[i]).whenReady(record => {
+                    console.log(record);
                     record.subscribe(data => {
                         this.chatEntries.unshift(data);
                         this.chatEntriesSource.next(this.chatEntries);

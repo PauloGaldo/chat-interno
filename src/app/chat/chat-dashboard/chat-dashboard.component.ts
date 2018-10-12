@@ -20,6 +20,7 @@ export class ChatDashboardComponent implements OnInit {
     private chat: ChatEntry;
     private list: any;
     private queryParams: Params;
+    private recordOfChat: ChatEntry;
 
     constructor(
         private deepStreamService: DeepStreamService,
@@ -122,13 +123,49 @@ export class ChatDashboardComponent implements OnInit {
 
     onSendMessage(value: any): void {
         if (value) {
-            const recordName = `${this.queryParams['id']}/${uuid()}`
-            const record = this.deepStreamService.session.record.getRecord(recordName);
-            record.whenReady(message => {
-                message.set(value);
-                this.list.addEntry(recordName);
+            this.deepStreamService.entries = this.deepStreamService.session.record.getList(`${this.deepStreamService.user.username}-chat-entries`);
+            this.deepStreamService.entries.whenReady(list => {
+                // OBTENEMOS MENSAJES
+                const entries = list.getEntries();
+                for (let i = 0; i < entries.length; i++) {
+                    this.deepStreamService.session.record.getRecord(entries[i]).whenReady(record => {
+                        record.subscribe(data => {
+                            this.processEntryAndMessage(value, data, record);
+                        }, true);
+                    });
+                }
             });
         }
+    }
+
+    processEntryAndMessage(value: Message, chatEntry: ChatEntry, record: any) {
+        console.log(value, chatEntry, record);
+        if (chatEntry.id === this.queryParams['id']) {
+            this.recordOfChat = chatEntry;
+            record.delete();
+            if (this.recordOfChat) {
+                this.recordOfChat.lastMessage = value;
+                // MENSAJE
+                const recordName = `${this.queryParams['id']}/${uuid()}`
+                const record = this.deepStreamService.session.record.getRecord(recordName);
+                record.whenReady(message => {
+                    message.set(value);
+                    this.list.addEntry(recordName);
+                    record.discard();
+                    this.createEntryMessage(this.recordOfChat);
+                });
+            }
+        }
+    }
+
+    createEntryMessage(recordOfChat: ChatEntry) {
+        const recordEntryChat = recordOfChat.id;
+        const recordEntry = this.deepStreamService.session.record.getRecord(recordEntryChat);
+        recordEntry.whenReady(message => {
+            message.set(this.recordOfChat);
+            this.deepStreamService.entries.addEntry(recordEntryChat);
+            this.initChat(recordOfChat.id);
+        });
     }
 
 }
