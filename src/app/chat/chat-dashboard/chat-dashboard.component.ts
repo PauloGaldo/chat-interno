@@ -3,8 +3,9 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { uuid } from '../../shared/utils/uuid';
+import { ChatEntry } from '../chat-entry.model';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
-import { Contact } from "../contact.model";
+import { Message } from '../message.model';
 
 
 @Component({
@@ -15,8 +16,8 @@ import { Contact } from "../contact.model";
 export class ChatDashboardComponent implements OnInit {
 
     @ViewChild('windowChat') windowChat: ChatWindowComponent;
-    public timeline = [];
-    private contact: Contact;
+    public timeline: Message[] = [];
+    private chat: ChatEntry;
     private list: any;
     private queryParams: Params;
 
@@ -29,6 +30,17 @@ export class ChatDashboardComponent implements OnInit {
         this.deepStreamService.login('', '').subscribe(response => {
             console.log(response);
         }, error => {
+            localStorage.setItem('user', JSON.stringify({
+                "id": "DESPBOMLON0",
+                "idUsuarioUPD": "admin",
+                "username": "usuario2",
+                "name": "name2",
+                "address": "addres2",
+                "station": "station2",
+                "agency": "agency2",
+                "jurisdiction": "jurisdiction",
+                "avatarUrl": "http://placehold.it/32x32"
+            }));
             // this.dialog.open(ModalErrorComponent, {
             //     height: '150px',
             //     width: '600px',
@@ -59,14 +71,14 @@ export class ChatDashboardComponent implements OnInit {
 
     /**
      * Metodo para limpiar, cerrar canal anterior de chat y establecer nuevo contacto
-     * @param contact contacto de la agenda
+     * @param chat contacto de la agenda
      */
-    contactChanged(contact: Contact): void {
+    chatChanged(chat: ChatEntry): void {
         if (this.list) {
             this.timeline = [];
-            this.contact = contact;
+            this.chat = chat;
             this.list.discard();
-            this.initChat(this.contact.id);
+            this.initChat(this.chat.id);
         }
     }
 
@@ -113,14 +125,7 @@ export class ChatDashboardComponent implements OnInit {
             const recordName = `${this.queryParams['id']}/${uuid()}`
             const record = this.deepStreamService.session.record.getRecord(recordName);
             record.whenReady(message => {
-                // data has now been loaded
-                message.set({
-                    id: '',
-                    emisor: this.deepStreamService.user,
-                    text: value.object ? null : value.text,
-                    object: value.object ? value.object : null,
-                    datetime: new Date().getTime(),
-                });
+                message.set(value);
                 this.list.addEntry(recordName);
             });
         }

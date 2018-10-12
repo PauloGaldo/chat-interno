@@ -6,6 +6,7 @@
                 <mat-icon class="example-tab-icon">message</mat-icon>
                 Chats
             </ng-template>
+            <!-- FILTRO DE BUSQUEDA -->
             <form [formGroup]="searchMessagesForm">
                 <mat-form-field appearance="outline" class="search-item">
                     <mat-icon matPrefix matListIcon>search</mat-icon>
@@ -13,12 +14,14 @@
                         (keyup.enter)="filterMessagesOnChat(searchMessagesForm)">
                 </mat-form-field>
             </form>
+            <!-- COLA DE MENSAJES -->
             <div class="list-chat">
                 <mat-list>
-                    <mat-list-item *ngFor="let chat of chats" [ngClass]="{'active': isContactActive(chat)}"
-                        (click)="selectContact(chat)">
+                    <mat-list-item *ngFor="let chat of chats" [ngClass]="{'active': isContactActive(chat)}" (click)="selectChat(chat)">
                         <mat-icon matListIcon>message</mat-icon>
-                        <div matLine>{{chat.id}}</div>
+                        <div matLine>{{chat.name}}</div>
+                        <div matLine>{{chat.lastMessage.text}}</div>
+                        <div matLine align="end">{{chat.lastMessage.timestamp | fromNow}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>
@@ -29,6 +32,7 @@
                 <mat-icon class="example-tab-icon">contacts</mat-icon>
                 Contactos
             </ng-template>
+            <!-- FILTRO DE BUSQUEDA -->
             <form [formGroup]="searchContactsForm">
                 <mat-form-field appearance="outline" class="search-item">
                     <mat-icon matPrefix matListIcon>search</mat-icon>
@@ -44,19 +48,21 @@
                         <mat-icon (click)="deleteContactGroup(i)">close</mat-icon>
                     </mat-chip>
                 </mat-chip-list>
-                <button mat-raised-button color="primary">Crear Grupo</button>
-                <button mat-raised-button color="accent" (click)="cancelGroup()">Cancelar</button>
+                <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+                    <button mat-raised-button color="primary">Crear Grupo</button>
+                    <button mat-raised-button color="accent" (click)="cancelGroup()">Cancelar</button>
+                </div>
             </div>
+            <!-- LISTADO DE CONTACTOS -->
             <div class="list-contacts">
                 <mat-list *ngIf="!optionGroup">
                     <mat-list-item (click)="createGroup()">
                         <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                        (click)="selectContact(contact)">
+                    <mat-list-item *ngFor="let contact of contacts" (click)="selectChat(null, contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
-                        <div matLine>{{contact.id}}</div>
+                        <div matLine>{{contact.name}} {{contact.address}}</div>
                     </mat-list-item>
                 </mat-list>
                 <mat-list *ngIf="optionGroup">
@@ -64,10 +70,9 @@
                         <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                     </mat-list-item>
                     <mat-divider></mat-divider>
-                    <mat-list-item *ngFor="let contact of contacts" [ngClass]="{'active': isContactActive(contact)}"
-                        (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
+                    <mat-list-item *ngFor="let contact of contacts" (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
-                        <div matLine>{{contact.id}}</div>
+                        <div matLine>{{contact.name}} {{contact.address}}</div>
                     </mat-list-item>
                 </mat-list>
             </div>

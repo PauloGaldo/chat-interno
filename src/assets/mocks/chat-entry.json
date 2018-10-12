@@ -1,79 +1,160 @@
 {
     "data": [
         {
-            "id": "DESPBOMLON1",
-            "name": "name3",
-            "lastMessage": {},
-            "emisor": {},
-            "idUsuarioUPD": "admin",
-            "username": "usuario3",
-            "address": "addres3",
-            "station": "station3",
-            "agency": "agency3",
-            "jurisdiction": "jurisdiction",
-            "avatarUrl": "http://placehold.it/32x32",
-            "text": "ExmpleTextContent",
-            "fileURL": "http://placehold.it/32x32",
-            "level": "urgente",
-            "read": true,
-            "timestap": "2018-06-25T00:00:00.000Z",
-            "unreadMessages": "10",
+            "id": "1",
+            "name": "Name Contact or Group",
+            "lastMessage": {
+                "id": "USERID1",
+                "emisor": {
+                    "id": "DESPBOMLON1",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario1",
+                    "name": "name1",
+                    "address": "addres1",
+                    "station": "station1",
+                    "agency": "agency1",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                },
+                "text": "Mensaje de prueba mockeado",
+                "fileUrl": "string",
+                "level": "String",
+                "status": "String",
+                "read": "boolean",
+                "timestamp": "2018-10-12T18:18:14.737Z"
+            },
+            "unreadMessages": "number",
             "receptors": [
-                null,
-                {},
-                {}
+                {
+                    "id": "DESPBOMLON0",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario1",
+                    "name": "name1",
+                    "address": "addres1",
+                    "station": "station1",
+                    "agency": "agency1",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                }
             ],
-            "listName": "list01"
+            "listName": "string"
         },
         {
-            "id": "DESPBOMLON2",
-            "name": "name3",
-            "lastMessage": {},
-            "emisor": {},
-            "idUsuarioUPD": "admin",
-            "username": "usuario3",
-            "address": "addres3",
-            "station": "station3",
-            "agency": "agency3",
-            "jurisdiction": "jurisdiction",
-            "avatarUrl": "http://placehold.it/32x32",
-            "text": "ExmpleTextContent",
-            "fileURL": "http://placehold.it/32x32",
-            "level": "urgente",
-            "read": true,
-            "timestap": "2018-06-25T00:00:00.000Z",
-            "unreadMessages": "10",
+            "id": "2",
+            "name": "Name Contact or Group",
+            "lastMessage": {
+                "id": "USERID2",
+                "emisor": {
+                    "id": "DESPBOMLON2",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario2",
+                    "name": "name2",
+                    "address": "addres2",
+                    "station": "station2",
+                    "agency": "agency2",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                },
+                "text": "Mensaje de prueba mockeado",
+                "fileUrl": "string",
+                "level": "String",
+                "status": "String",
+                "read": "boolean",
+                "timestamp": "2018-10-12T18:18:14.737Z"
+            },
+            "unreadMessages": "number",
             "receptors": [
-                null,
-                {},
-                {}
+                {
+                    "id": "DESPBOMLON0",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario1",
+                    "name": "name1",
+                    "address": "addres1",
+                    "station": "station1",
+                    "agency": "agency1",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                }
             ],
-            "listName": "list01"
+            "listName": "string"
         },
         {
-            "id": "DESPBOMLON3",
-            "name": "name3",
-            "lastMessage": {},
-            "emisor": {},
-            "idUsuarioUPD": "admin",
-            "username": "usuario3",
-            "address": "addres3",
-            "station": "station3",
-            "agency": "agency3",
-            "jurisdiction": "jurisdiction",
-            "avatarUrl": "http://placehold.it/32x32",
-            "text": "ExmpleTextContent",
-            "fileURL": "http://placehold.it/32x32",
-            "level": "urgente",
-            "read": true,
-            "timestap": "2018-06-25T00:00:00.000Z",
-            "unreadMessages": "10",
+            "id": "3",
+            "name": "Name Contact or Group",
+            "lastMessage": {
+                "id": "USERID3",
+                "emisor": {
+                    "id": "DESPBOMLON3",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario2",
+                    "name": "name2",
+                    "address": "addres2",
+                    "station": "station2",
+                    "agency": "agency2",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                },
+                "text": "Mensaje de prueba mockeado",
+                "fileUrl": "string",
+                "level": "String",
+                "status": "String",
+                "read": "boolean",
+                "timestamp": "2018-10-12T18:18:14.737Z"
+            },
+            "unreadMessages": "number",
             "receptors": [
-                null,
-                {},
-                {}
+                {
+                    "id": "DESPBOMLON0",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario1",
+                    "name": "name1",
+                    "address": "addres1",
+                    "station": "station1",
+                    "agency": "agency1",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                }
             ],
-            "listName": "list01"
+            "listName": "string"
+        },
+        {
+            "id": "4",
+            "name": "Name Contact or Group",
+            "lastMessage": {
+                "id": "USERID4",
+                "emisor": {
+                    "id": "DESPBOMLON4",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario2",
+                    "name": "name2",
+                    "address": "addres2",
+                    "station": "station2",
+                    "agency": "agency2",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                },
+                "text": "Mensaje de prueba mockeado",
+                "fileUrl": "string",
+                "level": "String",
+                "status": "String",
+                "read": "boolean",
+                "timestamp": "2018-10-12T18:18:14.737Z"
+            },
+            "unreadMessages": "number",
+            "receptors": [
+                {
+                    "id": "DESPBOMLON0",
+                    "idUsuarioUPD": "admin",
+                    "username": "usuario1",
+                    "name": "name1",
+                    "address": "addres1",
+                    "station": "station1",
+                    "agency": "agency1",
+                    "jurisdiction": "jurisdiction",
+                    "avatarUrl": "http://placehold.it/32x32"
+                }
+            ],
+            "listName": "string"
         }
     ]
 }

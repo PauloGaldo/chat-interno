@@ -3,11 +3,11 @@
         <perfect-scrollbar class="wrapper" #chatbox [config]="config" id="windowChatBox">
             <div class="message-wrapper" *ngFor="let message of messages.reverse()" [ngClass]="isUserAuthor(message)">
                 <div class="circle-wrapper animated bounceIn"></div>
-                <div class="text-wrapper animated fadeIn" *ngIf="message.content">
-                    {{message.content}}
+                <div class="text-wrapper animated fadeIn" *ngIf="message.text">
+                    {{message.text}}
                 </div>
-                <div class="text-wrapper animated fadeIn" *ngIf="message.object">
-                    <a download [href]="message.object.fileDownloadUri">{{message.object.fileName}}</a>
+                <div class="text-wrapper animated fadeIn" *ngIf="message.fileUrl">
+                    <a download [href]="message.fileUrl">{{message.fileName}}</a>
                 </div>
             </div>
         </perfect-scrollbar>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DeepStreamService } from '../../shared/services/deep-stream.service';
+import { ChatEntry } from '../chat-entry.model';
 import { Contact } from '../contact.model';
 import { ChatService } from '../services/chat.service';
 
@@ -12,10 +14,11 @@ import { ChatService } from '../services/chat.service';
 export class ChatContactsComponent implements OnInit {
 
     @Output() changed: any = new EventEmitter<any>();
-    public contacts = [];
-    public chats = [];
+    public contacts: Contact[] = [];
+    public chats: ChatEntry[] = [];
     public contactsGroup = [];
     public activeContact: Contact;
+    public activeChat: ChatEntry;
     public optionGroup = false;
     public optionGroupShow = false;
     public searchMessagesForm: FormGroup;
@@ -26,7 +29,8 @@ export class ChatContactsComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private chatService: ChatService,
-        private formbuilder: FormBuilder
+        private formbuilder: FormBuilder,
+        private deepStreamService: DeepStreamService
     ) {
         this.searchMessagesForm = this.formbuilder.group({
             filter: ''
@@ -39,8 +43,13 @@ export class ChatContactsComponent implements OnInit {
         this.chatService.getContactList().subscribe(response => {
             this.contacts = response.data;
         });
-
-        
+        // CARGAR MOCK DE MENSAJES
+        this.chatService.getMessagesList().subscribe(response => {
+            // this.chats = response.data;
+        });
+        this.deepStreamService.chatEntriesAnnounced.subscribe(response => {
+            this.chats = response;
+        });
     }
 
     ngOnInit() {
@@ -60,16 +69,36 @@ export class ChatContactsComponent implements OnInit {
     }
 
     /**
-     * Metodo para seleccionar y poner activo un contacto del listado
-     * @param contact contacto del listado
+     * Metodo para seleccionar y poner activo un chat del listado
+     * @param chat chat del listado
      */
-    selectContact(contact: Contact): void {
-        if (contact) {
-            this.activeContact = contact;
+    selectChat(chat: ChatEntry, contact?: Contact): void {
+        if (chat) {
+            this.activeChat = chat;
             const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-            queryParams['id'] = contact.id;
+            queryParams['id'] = chat.id;
             this.router.navigate(['.'], { queryParams: queryParams });
-            this.changed.emit(contact);
+            this.changed.emit(chat);
+        } else if (contact) {
+            const newChat: ChatEntry = {
+                id: `${this.deepStreamService.user.id}-${contact.id}`,
+                lastMessage: null,
+                listName: null,
+                name: `${contact.name} ${contact.address}`,
+                receptors: [contact],
+                unreadMessages: null
+            };
+            const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
+            queryParams['id'] = newChat.id;
+            this.router.navigate(['.'], { queryParams: queryParams });
+            this.changed.emit(newChat);
+            // CREACION DE NUEVA ENTRADA DE CHAT
+            const recordName = `${this.deepStreamService.user.id}-${contact.id}`
+            const record = this.deepStreamService.session.record.getRecord(recordName);
+            record.whenReady(message => {
+                message.set(newChat);
+                this.deepStreamService.entries.addEntry(recordName);
+            });
         }
     }
 
@@ -99,7 +128,9 @@ export class ChatContactsComponent implements OnInit {
      */
     filterMessagesOnChat(form: FormGroup) {
         if (form.valid) {
-            console.log(form);
+            this.chatService.filterMessageList(form.controls.filter.value).subscribe(response => {
+                console.log(response);
+            });
         }
     }
 
@@ -111,7 +142,6 @@ export class ChatContactsComponent implements OnInit {
         const result = this.contactsGroup.filter(item => {
             return item.id === contact.id;
         })[0];
-        console.log(result);
         return result ? true : false;
     }
 
@@ -119,7 +149,5 @@ export class ChatContactsComponent implements OnInit {
         this.contactsGroup = [];
         this.optionGroupShow = true;
     }
-
-
 
 }

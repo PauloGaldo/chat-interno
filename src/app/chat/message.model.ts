@@ -5,6 +5,7 @@ export interface Message {
     emisor: Contact;
     text: string;
     fileUrl: string;
+    fileName: string;
     level: String;
     status: String;
     read: boolean;

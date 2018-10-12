@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { ModalErrorComponent } from './modal-error/modal-error.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
 
 @NgModule({
     imports: [
@@ -10,9 +11,13 @@ import { ModalErrorComponent } from './modal-error/modal-error.component';
         HttpClientModule,
         MaterialModule
     ],
-    declarations: [ModalErrorComponent],
+    declarations: [
+        ModalErrorComponent,
+        FromNowPipe
+    ],
     exports: [
-        MaterialModule
+        MaterialModule,
+        FromNowPipe
     ],
     entryComponents: [
         ModalErrorComponent

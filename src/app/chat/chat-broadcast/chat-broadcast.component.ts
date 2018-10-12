@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { uuid } from '../../shared/utils/uuid';
+import { Message } from '../message.model';
 
 @Component({
     selector: 'ci-chat-broadcast',
@@ -37,14 +38,18 @@ export class ChatBroadcastComponent implements OnInit {
             const record = this.deepStreamService.session.record.getRecord(recordName);
             record.whenReady(message => {
                 // data has now been loaded
-                message.set({
-                    id:this.deepStreamService.user.id,
+                const m: Message = {
+                    id: this.deepStreamService.user.id,
                     emisor: this.deepStreamService.user,
-                    text:form.controls.message.value,
-                    level:form.controls.type.value,
-                    timestamp: new Date().getTime()
-                    
-                });
+                    text: form.controls.message.value,
+                    level: form.controls.type.value,
+                    timestamp: new Date(),
+                    fileUrl: null,
+                    read: false,
+                    status: null,
+                    fileName: null
+                }
+                message.set(m);
                 const systemNotification = this.deepStreamService.session.record.getList('system-notification');
                 systemNotification.addEntry(recordName);
                 this.dialogRef.close();

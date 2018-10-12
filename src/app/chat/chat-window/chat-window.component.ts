@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PerfectScrollbarComponent, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
-import { ChatService } from '../services/chat.service';
 import { Message } from "../message.model";
+import { ChatService } from '../services/chat.service';
 
 
 @Component({
@@ -35,6 +35,10 @@ export class ChatWindowComponent implements OnInit {
         this.chatbox.directiveRef.scrollToBottom();
     }
 
+    /**
+     * Funcion para aplicar clase a mensaje e identificar si es propio o ajeno
+     * @param user usuario autor del mensaje
+     */
     isUserAuthor(user) {
         if (user.author === this.deepStreamService.user.idPerfil) {
             return 'me';
@@ -49,15 +53,21 @@ export class ChatWindowComponent implements OnInit {
      */
     sendMessage(form: FormGroup): void {
         if (form.controls.message.value) {
-            this.send.emit({
-                text: form.controls.message.value,
+            const m: Message = {
+                id: this.deepStreamService.user.id,
                 emisor: this.deepStreamService.user,
-                timestamp: new Date().getTime()
-            });
+                text: form.controls.message.value,
+                level: null,
+                timestamp: new Date(),
+                fileUrl: null,
+                read: false,
+                status: null,
+                fileName: null
+            }
+            this.send.emit(m);
             this.messageForm.reset();
         }
     }
-
 
     /**
      * Metodo para setear imagen
@@ -67,11 +77,18 @@ export class ChatWindowComponent implements OnInit {
         if (file) {
             this.chatService.uploadFile(file).subscribe(response => {
                 console.log(response);
-                this.send.emit({
-                    text: '',
-                    object: response,
-                    datetime: new Date().getTime()
-                });
+                const m: Message = {
+                    id: this.deepStreamService.user.id,
+                    emisor: this.deepStreamService.user,
+                    text: null,
+                    level: null,
+                    timestamp: new Date(),
+                    fileUrl: response.fileDownloadUri,
+                    fileName: response.fileName,
+                    read: false,
+                    status: null
+                }
+                this.send.emit(m);
                 this.messageForm.reset();
             });
         }
