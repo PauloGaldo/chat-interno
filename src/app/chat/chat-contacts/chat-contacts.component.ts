@@ -74,14 +74,12 @@ export class ChatContactsComponent implements OnInit {
      */
     selectChat(chat: ChatEntry, contact?: Contact): void {
         if (chat) {
-            console.log('chat ===>', chat);
             this.activeChat = chat;
             this.changed.emit(chat);
         } else if (contact) {
             if (!this.entries) {
                 this.loadUserChatEntries();
             }
-            console.log('contact ===>', contact);
             const newChat: ChatEntry = {
                 id: `${this.deepStreamService.user.id}_${contact.id}`,
                 lastMessage: null,
@@ -116,10 +114,40 @@ export class ChatContactsComponent implements OnInit {
         }
     }
 
-    // Crear grupo
+    /**
+     * Metodo para inicializar creacion de grupos
+     */
     createGroup() {
         this.contactsGroup = [];
         this.optionGroup = true;
+    }
+
+    /**
+     * Metodo para crear entrada en la cola de mensajes para los grupos
+     */
+    createGroupEntry(name: string, contacts: Contact[]) {
+        this.group.push({
+            groupName: name,
+            contacts: contacts
+        });
+        const newGroupChat: ChatEntry = {
+            id: `${this.deepStreamService.user.id}_${name}`,
+            lastMessage: null,
+            listName: `chat_entries/${this.deepStreamService.user.id}_${name}`,
+            name: `${name}`,
+            receptors: [this.deepStreamService.user, ...contacts],
+            unreadMessages: null,
+            timestamp: new Date()
+        };
+        // CREACION DE NUEVA ENTRADA DE CHAT PARA EL GRUPO
+        const recordName = newGroupChat.listName;
+        const record = this.deepStreamService.session.record.getRecord(recordName);
+        record.whenReady(message => {
+            message.set(newGroupChat);
+            this.entries.addEntry(recordName);
+        });
+        this.selectedTab = 0;
+        this.changed.emit(newGroupChat);
     }
 
     // Agregar contacto al grupo
@@ -150,23 +178,26 @@ export class ChatContactsComponent implements OnInit {
         return result ? true : false;
     }
 
+    /**
+     * Metodo para cerrar creacion de grupos
+     */
     cancelGroup() {
         this.contactsGroup = [];
         this.optionGroup = false;
         this.groupForm.reset();
     }
 
+    /**
+     * Metodo para validar la creacion de grupos
+     * @param form formulario de nombre de grupo
+     * @param contacts listado de contactos
+     */
     addGroup(form: FormGroup, contacts: any[]) {
         if (form.valid) {
-            this.group.push({
-                groupName: form.controls.groupName.value, 
-                contacts: contacts
-            });
+            this.createGroupEntry(form.controls.groupName.value, contacts);
             this.optionGroup = false;
             this.groupForm.reset();
             this.contactsGroup = [];
-        } else {
-            // this.cancelGroup();
         }
     }
 
@@ -178,13 +209,10 @@ export class ChatContactsComponent implements OnInit {
         this.entries = this.deepStreamService.session.record.getList(`${this.deepStreamService.user.username}-chat-entries`);
         this.entries.whenReady(list => {
             // OBTENEMOS MENSAJES
-            console.log('entries ===>', this.entries);
-
             const entries = list.getEntries();
             for (let i = 0; i < entries.length; i++) {
                 this.deepStreamService.session.record.getRecord(entries[i]).whenReady(record => {
                     record.subscribe(data => {
-                        console.log('chat-entry viejo ===>', record, data);
                         this.chatEntries.unshift(data);
                         this.chatEntriesSource.next(this.chatEntries);
                     }, true);
@@ -194,7 +222,6 @@ export class ChatContactsComponent implements OnInit {
             list.on('entry-added', (recordName) => {
                 this.deepStreamService.session.record.getRecord(recordName).whenReady(record => {
                     record.subscribe(data => {
-                        console.log('chat-entry new ===>', record, data);
                         this.chatEntries.unshift(data);
                         this.selectChat(data);
                         this.chatEntriesSource.next(this.chatEntries);
@@ -204,20 +231,22 @@ export class ChatContactsComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion para agregar contacto a cola de mensajes o descargar el existente
+     * 
+     * @param contact contacto
+     * @param recordName nombre de registro a guardar
+     */
     addChatEntryToContact(contact: Contact, recordName: string): void {
-        console.log('addChatEntryToContact:args ===>', contact, recordName);
         const userId = this.deepStreamService.user.id;
-        console.log('                    userId ===>', userId);
         const contactChatEntries = this.deepStreamService.session.record
             .getList(`${contact.username}-chat-entries`);
         contactChatEntries.whenReady(list => {
             const entries = list.getEntries();
             let found = false;
-            console.log('contactChatEntries ===>', contactChatEntries, entries);
             for (let i = 0; !found && i < entries.length; i++) {
                 found = found || entries[i] === `chat_entries/${contact.username}_${userId}`;
                 found = found || entries[i] === `chat_entries/${userId}_${contact.username}`;
-                console.log('ChatEntry', i, entries[i], found);
             }
             if (!found) {
                 contactChatEntries.addEntry(recordName);
