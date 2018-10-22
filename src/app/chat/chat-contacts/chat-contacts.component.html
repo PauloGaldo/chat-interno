@@ -17,9 +17,7 @@
             <!-- COLA DE MENSAJES -->
             <div class="list-chat">
                 <mat-list>
-                    <mat-list-item *ngFor="let chat of chatEntries "
-                                   [ngClass]="{'active': isChatActive(chat)}"
-                                   (click)="selectChat(chat, null)">
+                    <mat-list-item *ngFor="let chat of chatEntries " [ngClass]="{'active': isChatActive(chat)}" (click)="selectChat(chat, null)">
                         <mat-icon matListIcon>message</mat-icon>
                         <div matLine>{{chat.name}}</div>
                         <div matLine *ngIf="chat.lastMessage">{{chat.lastMessage}}</div>
@@ -45,9 +43,9 @@
             <!--Crear Grupo-->
             <div *ngIf="contactsGroup.length > 0">
                 <form [formGroup]="groupForm">
-                  <mat-form-field class="search-item">
-                    <input matInput formControlName="groupName" placeholder="Nombre del Grupo">
-                  </mat-form-field>
+                    <mat-form-field class="search-item">
+                        <input matInput formControlName="groupName" placeholder="Nombre del Grupo">
+                    </mat-form-field>
                 </form>
                 <mat-chip-list>
                     <mat-chip *ngFor="let contact of contactsGroup; let i = index" [attr.data-index]="i">
@@ -56,7 +54,7 @@
                     </mat-chip>
                 </mat-chip-list>
                 <div fxLayout="row wrap" fxLayoutAlign="space-around center">
-                    <button mat-raised-button color="primary" (click)="addGroup()">Crear Grupo</button>
+                    <button mat-raised-button color="primary" (click)="addGroup(groupForm, contactsGroup)">Crear Grupo</button>
                     <button mat-raised-button color="accent" (click)="cancelGroup()">Cancelar</button>
                 </div>
             </div>
@@ -67,6 +65,13 @@
                         <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                     </mat-list-item>
                     <mat-divider></mat-divider>
+                    <ng-container *ngIf="group">
+                        <mat-list-item *ngFor="let g of group">
+                            <mat-icon matListIcon>account_circle</mat-icon>
+                            <div matLine>{{g.groupName}}</div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </ng-container>
                     <mat-list-item *ngFor="let contact of contacts" (click)="selectChat(null, contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
                         <div matLine>{{contact.name}}</div>
@@ -76,7 +81,9 @@
                 <mat-list *ngIf="optionGroup">
                     <mat-list-item>
                         Seleccione los contactos
-                        <button mat-icon-button><mat-icon *ngIf="contactsGroup.length === 0" (click)="cancelGroup()">cancel</mat-icon></button>
+                        <button mat-icon-button>
+                            <mat-icon *ngIf="contactsGroup.length === 0" (click)="cancelGroup()">cancel</mat-icon>
+                        </button>
                     </mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item *ngFor="let contact of contacts" (click)="addContactGroup(contact)" [hidden]="isContactGroupSelected(contact)">
