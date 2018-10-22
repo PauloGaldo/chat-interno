@@ -238,21 +238,33 @@ export class ChatContactsComponent implements OnInit {
      * @param recordName nombre de registro a guardar
      */
     addChatEntryToContact(contact: Contact, recordName: string): void {
+        console.log('addChatEntryToContact:args ===>', contact, recordName);
         const userId = this.deepStreamService.user.id;
+        console.log('                    userId ===>', userId);
         const contactChatEntries = this.deepStreamService.session.record
             .getList(`${contact.username}-chat-entries`);
         contactChatEntries.whenReady(list => {
             const entries = list.getEntries();
             let found = false;
+            console.log('contactChatEntries ===>', contactChatEntries, entries);
             for (let i = 0; !found && i < entries.length; i++) {
-                found = found || entries[i] === `chat_entries/${contact.username}_${userId}`;
-                found = found || entries[i] === `chat_entries/${userId}_${contact.username}`;
+                if (contactChatEntries.get(i) === contact ) {
+                    found = true;
+                    console.log(found);
+                    found = found || entries[i] === `chat_entries/${contact.username}_${userId}`;
+                    found = found || entries[i] === `chat_entries/${userId}_${contact.username}`;
+                    console.log('ChatEntry', i, entries[i], found);
+                }
             }
             if (!found) {
                 contactChatEntries.addEntry(recordName);
+            } else {
+                contactChatEntries.discard();
             }
-            contactChatEntries.discard();
         });
     }
 
+    verifyChat() {
+
+    }
 }
