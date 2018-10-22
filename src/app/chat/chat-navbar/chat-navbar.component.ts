@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ChatBroadcastComponent } from '../chat-broadcast/chat-broadcast.component';
+import { DeepStreamService } from 'src/app/shared/services/deep-stream.service';
 
 @Component({
     selector: 'ci-chat-navbar',
@@ -9,9 +10,11 @@ import { ChatBroadcastComponent } from '../chat-broadcast/chat-broadcast.compone
 })
 export class ChatNavbarComponent implements OnInit {
 
-    constructor(public dialog: MatDialog) { }
+    public user: string;
+    constructor(public dialog: MatDialog, private deepStreamService: DeepStreamService) { }
 
     ngOnInit() {
+      this.user = this.deepStreamService.user.username;
     }
 
     openBroadcast(): void {
@@ -29,7 +32,6 @@ export class ChatNavbarComponent implements OnInit {
         const printContent = document.getElementById('windowChatBox');
         const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
         WindowPrt.document.write('<html><head>' + '<style>' + `
-       
             .message-wrapper {
               position: relative;
               overflow: hidden;
@@ -87,7 +89,6 @@ export class ChatNavbarComponent implements OnInit {
               top: 0;
               right: -9px;
             }
-                   
             </style>
             ` + '<title>Imprimir</title></head><body></body></html>');
         WindowPrt.document.write(printContent.innerHTML);

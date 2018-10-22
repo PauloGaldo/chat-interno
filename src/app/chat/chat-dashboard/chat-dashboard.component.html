@@ -4,8 +4,14 @@
     <!-- CONTENEDOR PRINCIPAL -->
     <div class="content-dashboard" fxFlex="100" fxLayout="row wrap">
         <!-- CONTACTOS -->
-        <ci-chat-contacts class="contacts-list" fxFlex="30" (changed)="chatChanged($event)"></ci-chat-contacts>
+        <ci-chat-contacts fxFlex="30"
+                          class="contacts-list"
+                          (changed)="chatChanged($event)"></ci-chat-contacts>
         <!-- CAJA DE CHAT -->
-        <ci-chat-window #windowChat class="contact-window" fxFlex="70" [messages]="timeline" (send)="onSendMessage($event)"></ci-chat-window>
-    </div>    
+        <ci-chat-window #windowChat
+                        fxFlex="70"
+                        class="contact-window"
+                        [messages]="chatMessages"
+                        (send)="onSendMessage($event)"></ci-chat-window>
+    </div>
 </div>

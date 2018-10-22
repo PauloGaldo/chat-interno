@@ -1,5 +1,5 @@
-import { Contact } from "./contact.model";
-import { Message } from "./message.model";
+import { Contact } from './contact.model';
+import { Message } from './message.model';
 
 export interface ChatEntry {
     id: string;
@@ -8,4 +8,5 @@ export interface ChatEntry {
     unreadMessages: number;
     receptors: Contact[];
     listName: string;
+    timestamp: Date;
 }

@@ -11,5 +11,18 @@
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
+    },
+    "/auth": {
+        "target": {
+            "host": "localhost",
+            "protocol": "http",
+            "port": 12000
+        },
+        "pathRewrite": {
+            "^/auth": ""
+        },
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
     }
 }

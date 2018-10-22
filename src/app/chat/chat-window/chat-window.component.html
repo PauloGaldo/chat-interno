@@ -1,27 +1,30 @@
 <div class="chat-window" fxLayout="row wrap">
-    <div fxFlex="100">
-        <perfect-scrollbar class="wrapper" #chatbox [config]="config" id="windowChatBox">
-            <div class="message-wrapper" *ngFor="let message of messages.reverse()" [ngClass]="isUserAuthor(message)">
-                <div class="circle-wrapper animated bounceIn"></div>
-                <div class="text-wrapper animated fadeIn" *ngIf="message.text">
-                    {{message.text}}
-                </div>
-                <div class="text-wrapper animated fadeIn" *ngIf="message.fileUrl">
-                    <a download [href]="message.fileUrl">{{message.fileName}}</a>
-                </div>
-            </div>
-        </perfect-scrollbar>
-        <form class="form-chat" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm)" fxFlex="100" fxLayout="row wrap"
-            autocomplete="off">
-            <input type="file" formControlName="file" #file type="file" [hidden]="true" (change)="uploadFile(file.files[0])" />
-            <mat-form-field fxFlex="100">
-                <input matInput formControlName="message" (keyup.enter)="sendMessage(messageForm)" autocomplete="off">
-                <button mat-icon-button matSuffix type="button" #upload (click)="file.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
-                <button mat-icon-button matSuffix>
-                    <mat-icon>send</mat-icon>
-                </button>
-            </mat-form-field>
-        </form>
-    </div>
+  <div fxFlex="100">
+    <perfect-scrollbar class="wrapper" #chatbox [config]="config" id="windowChatBox">
+      <div class="message-wrapper" *ngFor="let message of messages.reverse()"
+           [ngClass]="isUserAuthor(message)">
+        <div class="circle-wrapper animated bounceIn"></div>
+        <div class="text-wrapper animated fadeIn" *ngIf="message.text">
+          {{message.text}}
+        </div>
+        <div class="text-wrapper animated fadeIn" *ngIf="message.fileUrl">
+          <a download [href]="message.fileUrl">{{message.fileName}}</a>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <form fxFlex="100" fxLayout="row wrap" class="form-chat" [formGroup]="messageForm"
+          (ngSubmit)="sendMessage(messageForm)" autocomplete="off">
+      <input formControlName="file" #file type="file"
+             [hidden]="true" (change)="uploadFile(file.files[0])"/>
+      <mat-form-field fxFlex="100">
+        <input matInput formControlName="message" autocomplete="off"
+               (keyup.enter)="sendMessage(messageForm)">
+        <button mat-icon-button matSuffix type="button" #upload (click)="file.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <button mat-icon-button matSuffix>
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </div>

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PerfectScrollbarComponent, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
-import { Message } from "../message.model";
+import { Message } from '../message.model';
 import { ChatService } from '../services/chat.service';
 
 
@@ -36,15 +36,11 @@ export class ChatWindowComponent implements OnInit {
     }
 
     /**
-     * Funcion para aplicar clase a mensaje e identificar si es propio o ajeno
-     * @param user usuario autor del mensaje
+     * Funcion para aplicar clase a un mensaje e identificar si es propio o ajeno
+     * @param message mensaje a evaluar
      */
-    isUserAuthor(user) {
-        if (user.author === this.deepStreamService.user.idPerfil) {
-            return 'me';
-        } else {
-            return 'them';
-        }
+    isUserAuthor(message: Message): string {
+      return (message.emisor.username === this.deepStreamService.user.username) ? 'me' : 'them';
     }
 
     /**
@@ -63,7 +59,7 @@ export class ChatWindowComponent implements OnInit {
                 read: false,
                 status: null,
                 fileName: null
-            }
+            };
             this.send.emit(m);
             this.messageForm.reset();
         }
@@ -87,7 +83,7 @@ export class ChatWindowComponent implements OnInit {
                     fileName: response.fileName,
                     read: false,
                     status: null
-                }
+                };
                 this.send.emit(m);
                 this.messageForm.reset();
             });

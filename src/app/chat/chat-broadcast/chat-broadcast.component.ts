@@ -34,7 +34,7 @@ export class ChatBroadcastComponent implements OnInit {
      */
     addSystemMessage(form: FormGroup) {
         if (form.valid) {
-            const recordName = `status/${uuid()}`
+            const recordName = `status/${uuid()}`;
             const record = this.deepStreamService.session.record.getRecord(recordName);
             record.whenReady(message => {
                 // data has now been loaded
@@ -48,9 +48,9 @@ export class ChatBroadcastComponent implements OnInit {
                     read: false,
                     status: null,
                     fileName: null
-                }
+                };
                 message.set(m);
-                const systemNotification = this.deepStreamService.session.record.getList('system-notification');
+                const systemNotification = this.deepStreamService.systemNotification;
                 systemNotification.addEntry(recordName);
                 this.dialogRef.close();
             });

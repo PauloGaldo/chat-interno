@@ -1,6 +1,9 @@
 <mat-toolbar fxLayout="column" fxFlex="100" class="toolbar" color="primary">
     <mat-toolbar-row>
-        <span fxFlex="15">CHAT INTERNO</span>
+        <span fxFlex="15">
+          <div matLine>CHAT INTERNO</div>
+          <div matLine>Usuario: {{user}}</div>
+        </span>
         <span fxFlex></span>
         <button mat-icon-button (click)="printActualChat()" matTooltip="Imprimir chat actual">
             <mat-icon>print</mat-icon>
