@@ -1,11 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { randomString } from 'src/app/shared/utils/uuid';
 import { DeepStreamService } from '../../shared/services/deep-stream.service';
 import { ChatEntry } from '../chat-entry.model';
 import { Contact } from '../contact.model';
 import { ChatService } from '../services/chat.service';
-import { uuid, randomString } from 'src/app/shared/utils/uuid';
 
 @Component({
     selector: 'ci-chat-contacts',
@@ -74,8 +73,8 @@ export class ChatContactsComponent implements OnInit {
      * @param chat chat del listado
      */
     selectChat(chat: ChatEntry): void {
-            this.activeChat = chat;
-            this.changed.emit(chat);
+        this.activeChat = chat;
+        this.changed.emit(chat);
     }
 
     selectContact(contact: Contact): void {
@@ -96,18 +95,14 @@ export class ChatContactsComponent implements OnInit {
         const record = this.deepStreamService.session.record.getRecord(recordName);
         record.whenReady(message => {
             // VALIDACIO SI EXISTE EN LA LISTA NO AGREGARLO
-            if (message.get('id')) {
-              console.log('asdfasd', message.get('id'));
-            } else {
-              console.log('32423423', message.get('id'));
-              this.entries.addEntry(recordName);
+            this.selectedTab = 0;
+            if (!message.get('id')) {
+                message.set(newChat);
+                this.entries.addEntry(recordName);
+                this.addChatEntryToContact(contact, recordName);
+                this.changed.emit(newChat);
             }
-            message.set(newChat);
         });
-        debugger;
-        this.selectedTab = 0;
-        this.addChatEntryToContact(contact, recordName);
-        this.changed.emit(newChat);
     }
 
     /**
@@ -120,6 +115,11 @@ export class ChatContactsComponent implements OnInit {
                 console.log(response);
             });
         }
+    }
+
+    hideMyself(contact: Contact) {
+        const self = JSON.parse(localStorage.getItem('login_data'));
+        return self.username === contact.username;
     }
 
     /**
@@ -157,7 +157,7 @@ export class ChatContactsComponent implements OnInit {
         });
         this.selectedTab = 0;
         for (const contact of contacts) {
-          this.addChatEntryToContact(contact, recordName, true);
+            this.addChatEntryToContact(contact, recordName, true);
         }
         this.changed.emit(newGroupChat);
     }
@@ -217,7 +217,7 @@ export class ChatContactsComponent implements OnInit {
      * Metodo para cargar la lista de Chat-Entries para el usuario logueado
      */
     loadUserChatEntries(): void {
-      console.log(new Date().toISOString(), 'loadUserChatEntries');
+        console.log(new Date().toISOString(), 'loadUserChatEntries');
         // ENTRADAS DE CHAT
         this.entries = this.deepStreamService.session.record.getList(`${this.deepStreamService.user.username}-chat-entries`);
         this.entries.whenReady(list => {
@@ -235,17 +235,16 @@ export class ChatContactsComponent implements OnInit {
             list.on('entry-added', (recordName) => {
                 this.deepStreamService.session.record.getRecord(recordName).whenReady(record => {
                     record.subscribe(data => {
-                      debugger;
-                      const chat = this.chatEntries.find(
-                        item => {
-                          return item.id === data.id;
+                        const chat = this.chatEntries.find(
+                            item => {
+                                return item.id === data.id;
+                            }
+                        );
+                        if (!chat) {
+                            this.chatEntries.unshift(data);
+                            this.selectChat(data);
+                            // this.chatEntriesSource.next(this.chatEntries);
                         }
-                      );
-                      if (!chat) {
-                        this.chatEntries.unshift(data);
-                        this.selectChat(data);
-                        // this.chatEntriesSource.next(this.chatEntries);
-                      }
                     }, true);
                 });
             });
@@ -264,18 +263,17 @@ export class ChatContactsComponent implements OnInit {
             .getList(`${contact.username}-chat-entries`);
         contactChatEntries.whenReady(list => {
             if (isGroup) {
-              contactChatEntries.addEntry(recordName);
+                contactChatEntries.addEntry(recordName);
             } else {
-              const entries = list.getEntries();
-              let found = false;
-              for (let i = 0; !found && i < entries.length; i++) {
-                  found = found || entries[i] === `chat_entries/${contact.username}_${userId}`;
-                  found = found || entries[i] === `chat_entries/${userId}_${contact.username}`;
-              }
-              debugger;
-              if (!found) {
-                  contactChatEntries.addEntry(recordName);
-              }
+                const entries = list.getEntries();
+                let found = false;
+                for (let i = 0; !found && i < entries.length; i++) {
+                    found = found || entries[i] === `chat_entries/${contact.username}_${userId}`;
+                    found = found || entries[i] === `chat_entries/${userId}_${contact.username}`;
+                }
+                if (!found) {
+                    contactChatEntries.addEntry(recordName);
+                }
             }
             contactChatEntries.discard();
         });

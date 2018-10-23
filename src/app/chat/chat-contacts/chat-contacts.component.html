@@ -58,13 +58,15 @@
                     <button mat-raised-button color="accent" (click)="cancelGroup()">Cancelar</button>
                 </div>
             </div>
-            <!-- LISTADO DE CONTACTOS -->
+            <!-- SECCION DE CONTACTOS -->
             <div class="list-contacts">
+                <!-- LISTADO DE CONTACTOS AGREGADOS -->
                 <mat-list *ngIf="!optionGroup">
                     <mat-list-item (click)="createGroup()">
                         <mat-icon matListIcon>group</mat-icon>Nuevo Grupo
                     </mat-list-item>
                     <mat-divider></mat-divider>
+                    <!-- GRUPOS AGREGADOS -->
                     <ng-container *ngIf="group">
                         <mat-list-item *ngFor="let g of group">
                             <mat-icon matListIcon>account_circle</mat-icon>
@@ -72,12 +74,14 @@
                         </mat-list-item>
                         <mat-divider></mat-divider>
                     </ng-container>
-                    <mat-list-item *ngFor="let contact of contacts" (click)="selectContact(contact)">
+                    <!-- LISTA DE CONTACTOS -->
+                    <mat-list-item *ngFor="let contact of contacts" (click)="selectContact(contact)" [hidden]="hideMyself(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
                         <div matLine>{{contact.name}}</div>
                         <p matLine>{{contact.address}}</p>
                     </mat-list-item>
                 </mat-list>
+                <!-- LISTADO PARA CREACION DE GRUPOS  -->
                 <mat-list *ngIf="optionGroup">
                     <mat-list-item>
                         Seleccione los contactos
