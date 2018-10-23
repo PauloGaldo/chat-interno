@@ -6,6 +6,7 @@ import { ChatEntry } from '../chat-entry.model';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { Message } from '../message.model';
 import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
+import { debug } from 'util';
 
 
 @Component({
@@ -61,12 +62,13 @@ export class ChatDashboardComponent implements OnInit {
     if (this.chat && chat.id === this.chat.id) {
       return;
     }
-    if (this.chatQueue) {
-      this.chatQueue.discard();
-    }
-    if (chat) {
-      this.chatMessages = [];
+    debugger;
+    if (!this.chat || chat.listName !== this.chat.listName) {
       this.chat = chat;
+      if (this.chatQueue) {
+        this.chatQueue.discard();
+      }
+      this.chatMessages = [];
       this.initChat(this.chat.id);
     }
   }
@@ -87,7 +89,6 @@ export class ChatDashboardComponent implements OnInit {
               this.chatMessages.unshift(data);
               setTimeout(() => {
                 this.windowChat.chatbox.directiveRef.scrollToBottom();
-                console.log(this.chatMessages[0]);
               }, 200);
             }, true);
           });
@@ -96,10 +97,17 @@ export class ChatDashboardComponent implements OnInit {
         list.on('entry-added', (recordName) => {
           this.deepStreamService.session.record.getRecord(recordName).whenReady(record => {
             record.subscribe(data => {
-              this.chatMessages.unshift(data);
+              debugger;
+              const chat = this.chatMessages.find(
+                item => {
+                  return item.id === data.id;
+                }
+              );
+              if (!chat) {
+                this.chatMessages.unshift(data);
+              }
               setTimeout(() => {
                 this.windowChat.chatbox.directiveRef.scrollToBottom();
-                console.log(this.chatMessages[0]);
               }, 200);
             }, true);
           });

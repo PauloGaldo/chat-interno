@@ -17,7 +17,7 @@
             <!-- COLA DE MENSAJES -->
             <div class="list-chat">
                 <mat-list>
-                    <mat-list-item *ngFor="let chat of chatEntries " [ngClass]="{'active': isChatActive(chat)}" (click)="selectChat(chat, null)">
+                    <mat-list-item *ngFor="let chat of chatEntries " [ngClass]="{'active': isChatActive(chat)}" (click)="selectChat(chat)">
                         <mat-icon matListIcon>message</mat-icon>
                         <div matLine>{{chat.name}}</div>
                         <div matLine *ngIf="chat.lastMessage">{{chat.lastMessage}}</div>
@@ -72,7 +72,7 @@
                         </mat-list-item>
                         <mat-divider></mat-divider>
                     </ng-container>
-                    <mat-list-item *ngFor="let contact of contacts" (click)="selectChat(null, contact)">
+                    <mat-list-item *ngFor="let contact of contacts" (click)="selectContact(contact)">
                         <mat-icon matListIcon>account_circle</mat-icon>
                         <div matLine>{{contact.name}}</div>
                         <p matLine>{{contact.address}}</p>
